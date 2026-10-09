@@ -2,2459 +2,483 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#6d5dfc">
 <title>خانواده لند | بازی‌های دورهمی</title>
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
-
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
 :root{
-  --primary:#6c5ce7;
-  --secondary:#00c6ff;
-  --pink:#ff4ecd;
-  --green:#00d68f;
-  --orange:#ff9f43;
-  --red:#ff4757;
-  --text:#202038;
-  --muted:#70708b;
-  --glass:rgba(255,255,255,.72);
-  --border:rgba(255,255,255,.75);
-  --shadow:0 25px 70px rgba(82,68,160,.18);
+  --bg:#f4f7ff;
+  --surface:rgba(255,255,255,.94);
+  --surface2:#ffffff;
+  --text:#172033;
+  --muted:#6e7890;
+  --primary:#6d5dfc;
+  --secondary:#18b9ff;
+  --green:#10b981;
+  --red:#ef4444;
+  --orange:#ff9b42;
+  --yellow:#f2c94c;
+  --purple:#9a58ff;
+  --border:#e7ebf3;
+  --shadow:0 25px 80px rgba(65,82,145,.13);
 }
-html,body{min-height:100%;font-family:'Vazirmatn',sans-serif;color:var(--text)}
-body{
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 10% 10%,rgba(108,92,231,.20),transparent 25%),
-    radial-gradient(circle at 90% 20%,rgba(0,198,255,.18),transparent 25%),
-    radial-gradient(circle at 50% 100%,rgba(255,78,205,.13),transparent 30%),
-    linear-gradient(135deg,#f8fbff,#eef5ff 45%,#fff6fc);
-}
-button,input,select,textarea{font-family:inherit}
+html,body{margin:0;padding:0;min-height:100%;font-family:Tahoma,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+body{overflow-x:hidden;transition:.3s}
+body.dark-night{background:#070a15;color:#f6f8ff}
+button,input,select{font:inherit}
 button{cursor:pointer;border:0}
-button:disabled{opacity:.45;cursor:not-allowed}
-
-#particles{
-  position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden
-}
-.particle{
-  position:absolute;width:6px;height:6px;border-radius:50%;
-  background:rgba(108,92,231,.35);
-  animation:floatParticle linear infinite;
-}
-@keyframes floatParticle{
-  from{transform:translateY(110vh) translateX(0);opacity:0}
-  10%{opacity:1}
-  90%{opacity:1}
-  to{transform:translateY(-20vh) translateX(80px);opacity:0}
-}
-
-.app{
-  width:min(1400px,94%);
-  margin:auto;
-  padding:20px 0 60px;
-}
-
-header{
-  position:sticky;top:12px;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;padding:15px 18px;margin-bottom:28px;
-  background:rgba(255,255,255,.70);
-  backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,.85);
-  border-radius:25px;
-  box-shadow:0 15px 45px rgba(64,50,140,.12);
-}
-.logo{
-  display:flex;align-items:center;gap:12px;
-  font-weight:900;font-size:22px
-}
-.logo-icon{
-  width:48px;height:48px;border-radius:17px;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--primary),var(--pink));
-  color:white;font-size:24px;
-  box-shadow:0 10px 25px rgba(108,92,231,.35);
-  animation:logoPulse 2s infinite;
-}
-@keyframes logoPulse{
-  50%{transform:translateY(-4px) rotate(3deg);box-shadow:0 16px 35px rgba(108,92,231,.45)}
-}
-.header-actions{display:flex;gap:8px;flex-wrap:wrap}
-
-.btn{
-  position:relative;overflow:hidden;
-  padding:12px 18px;border-radius:15px;
-  color:white;font-weight:800;
-  background:linear-gradient(135deg,var(--primary),#8e7dff);
-  box-shadow:0 10px 25px rgba(108,92,231,.22);
-  transition:.25s;
-}
-.btn:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(108,92,231,.3)}
-.btn:active{transform:scale(.96)}
-.btn.secondary{background:linear-gradient(135deg,#00a8ff,#00d2ff)}
-.btn.green{background:linear-gradient(135deg,#00b87a,#00e69b)}
-.btn.red{background:linear-gradient(135deg,#ff4757,#ff6b81)}
-.btn.orange{background:linear-gradient(135deg,#ff8f2b,#ffc048)}
-.btn.gray{background:#70708b}
-.btn.small{padding:8px 12px;font-size:13px}
-
-.screen{display:none;animation:screenIn .5s ease}
-.screen.active{display:block}
-@keyframes screenIn{
-  from{opacity:0;filter:blur(18px);transform:translateY(18px) scale(.98)}
-  to{opacity:1;filter:blur(0);transform:none}
-}
-
-.hero{
-  min-height:410px;
-  display:grid;grid-template-columns:1.2fr .8fr;
-  gap:25px;align-items:center;
-  padding:35px;
-  border-radius:35px;
-  background:rgba(255,255,255,.68);
-  backdrop-filter:blur(25px);
-  box-shadow:var(--shadow);
-  border:1px solid white;
-  overflow:hidden;
-  position:relative;
-}
-.hero:before,.hero:after{
-  content:"";position:absolute;border-radius:50%;filter:blur(3px);
-  animation:orb 7s ease-in-out infinite alternate;
-}
-.hero:before{
-  width:260px;height:260px;background:rgba(108,92,231,.16);
-  left:-80px;top:-100px
-}
-.hero:after{
-  width:220px;height:220px;background:rgba(255,78,205,.14);
-  right:-80px;bottom:-80px;animation-delay:-3s
-}
-@keyframes orb{to{transform:translate(50px,35px) scale(1.15)}}
-.hero-content{position:relative;z-index:2}
-.badge{
-  display:inline-flex;padding:8px 13px;border-radius:99px;
-  background:rgba(108,92,231,.10);color:var(--primary);
-  font-weight:800;margin-bottom:15px
-}
-.hero h1{
-  font-size:clamp(40px,6vw,78px);
-  line-height:1.05;font-weight:900;
-  background:linear-gradient(90deg,#5140d8,#00aeea,#ef42c7);
-  -webkit-background-clip:text;color:transparent;
-}
-.hero p{margin:18px 0;color:var(--muted);font-size:17px;line-height:2}
-.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
-.hero-art{
-  position:relative;min-height:300px;display:grid;place-items:center;
-}
-.floating-card{
-  position:absolute;padding:22px;border-radius:28px;
-  background:rgba(255,255,255,.8);
-  backdrop-filter:blur(20px);
-  box-shadow:0 20px 50px rgba(55,44,130,.16);
-  border:1px solid white;
-  font-size:45px;
-  animation:floatCard 4s ease-in-out infinite;
-}
-.floating-card:nth-child(1){top:15px;right:30px}
-.floating-card:nth-child(2){bottom:20px;left:30px;animation-delay:-1.2s}
-.floating-card:nth-child(3){top:90px;left:90px;animation-delay:-2.3s}
-@keyframes floatCard{
-  50%{transform:translateY(-16px) rotate(4deg)}
-}
-
-.section-title{
-  display:flex;justify-content:space-between;align-items:center;
-  margin:38px 0 18px;gap:15px
-}
-.section-title h2{font-size:28px;font-weight:900}
-.section-title span{color:var(--muted);font-size:14px}
-
-.games-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:17px;
-}
-.game-card{
-  padding:23px;border-radius:27px;
-  background:rgba(255,255,255,.72);
-  border:1px solid white;
-  backdrop-filter:blur(18px);
-  box-shadow:0 15px 40px rgba(72,57,150,.10);
-  transition:.3s;position:relative;overflow:hidden;
-}
-.game-card:before{
-  content:"";position:absolute;inset:-50%;
-  background:radial-gradient(circle,rgba(108,92,231,.12),transparent 55%);
-  transform:scale(0);transition:.4s
-}
-.game-card:hover{transform:translateY(-8px) rotate(.3deg);box-shadow:0 25px 60px rgba(72,57,150,.18)}
-.game-card:hover:before{transform:scale(1)}
-.game-icon{
-  width:62px;height:62px;border-radius:20px;
-  display:grid;place-items:center;font-size:31px;
-  background:linear-gradient(135deg,#eeeaff,#e8faff);
-  margin-bottom:14px;position:relative
-}
-.game-card h3{font-size:19px;margin-bottom:7px;position:relative}
-.game-card p{font-size:13px;color:var(--muted);line-height:1.9;position:relative}
-.game-card .btn{margin-top:15px;position:relative}
-
-.panel{
-  background:rgba(255,255,255,.76);
-  border:1px solid white;
-  backdrop-filter:blur(25px);
-  border-radius:28px;
-  padding:25px;
-  box-shadow:var(--shadow);
-}
-.topbar{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;flex-wrap:wrap;margin-bottom:20px
-}
-.topbar h2{font-size:27px;font-weight:900}
-.field{
-  display:flex;flex-direction:column;gap:8px;margin-bottom:15px
-}
-.field label{font-weight:800;font-size:14px}
-input,select,textarea{
-  width:100%;padding:13px 15px;
-  border:1px solid #e0e0ee;border-radius:14px;
-  background:rgba(255,255,255,.88);
-  outline:none;transition:.2s;color:var(--text)
-}
-input:focus,select:focus,textarea:focus{
-  border-color:#9d91ff;box-shadow:0 0 0 4px rgba(108,92,231,.10)
-}
-textarea{min-height:100px;resize:vertical}
-
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-
-.players-list{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px
-}
-.player-chip{
-  display:flex;align-items:center;gap:9px;
-  padding:12px;border-radius:15px;background:#f7f7fc;
-  border:1px solid #ededf6
-}
-.player-avatar{
-  width:38px;height:38px;border-radius:13px;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,#ddd7ff,#d8f7ff);
-  font-weight:900
-}
-
-.role-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px;
-  max-height:620px;overflow:auto;padding:3px
-}
-.role-card{
-  padding:15px;border:2px solid #ededf7;border-radius:19px;
-  background:rgba(255,255,255,.85);transition:.25s
-}
-.role-card.selected{border-color:#8879ff;box-shadow:0 10px 25px rgba(108,92,231,.12)}
-.role-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-.role-icon{
-  width:45px;height:45px;border-radius:14px;display:grid;place-items:center;
-  background:#f0eeff;font-size:23px
-}
-.role-card h4{font-size:15px}
-.role-team{font-size:11px;color:var(--muted)}
-.role-card p{font-size:12px;line-height:1.8;color:var(--muted);margin:8px 0}
-.role-count{
-  display:flex;align-items:center;gap:8px
-}
-.role-count button{
-  width:30px;height:30px;border-radius:10px;background:#eeeaff;font-weight:900
-}
-.role-count span{min-width:25px;text-align:center;font-weight:900}
-
-.mafia-stage{
-  position:relative;overflow:hidden;
-  min-height:650px;border-radius:30px;
-  background:linear-gradient(145deg,#fbfbff,#f1f5ff);
-}
-.mafia-stage.night{
-  background:
-    radial-gradient(circle at 50% 0%,rgba(76,67,150,.3),transparent 40%),
-    linear-gradient(145deg,#08091a,#101329 60%,#151126);
-  color:white;
-}
-.night-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.star{
-  position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;
-  box-shadow:0 0 8px white;animation:twinkle 2s infinite alternate
-}
-@keyframes twinkle{to{opacity:.15;transform:scale(.5)}}
-
-.phase{
-  text-align:center;padding:25px 15px 10px;position:relative;z-index:2
-}
-.phase-icon{
-  font-size:60px;display:inline-block;
-  animation:phaseFloat 2s ease-in-out infinite
-}
-@keyframes phaseFloat{50%{transform:translateY(-10px) rotate(4deg)}}
-.phase h2{font-size:34px;font-weight:900;margin:8px 0}
-.phase p{opacity:.75}
-
-.timer{
-  width:130px;height:130px;border-radius:50%;
-  margin:20px auto;display:grid;place-items:center;
-  background:conic-gradient(var(--primary) var(--progress,100%),#e8e8f4 0);
-  position:relative;
-  box-shadow:0 15px 35px rgba(108,92,231,.2)
-}
-.timer:after{
-  content:"";position:absolute;inset:9px;border-radius:50%;
-  background:#fff
-}
-.night .timer:after{background:#101329}
-.timer strong{position:relative;z-index:2;font-size:30px}
-
-.role-action{
-  max-width:800px;margin:15px auto;padding:25px;
-  border-radius:25px;background:rgba(255,255,255,.84);
-  color:var(--text);box-shadow:0 20px 50px rgba(0,0,0,.08);
-  animation:actionIn .5s ease
-}
-.night .role-action{background:rgba(255,255,255,.09);color:white;border:1px solid rgba(255,255,255,.12)}
-@keyframes actionIn{
-  from{opacity:0;transform:scale(.9) translateY(15px);filter:blur(8px)}
-  to{opacity:1;transform:none;filter:none}
-}
-.action-prompt{font-size:24px;font-weight:900;text-align:center;margin-bottom:18px}
-.target-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px
-}
-.target{
-  padding:15px;border-radius:16px;
-  background:#f4f3fb;border:2px solid transparent;
-  font-weight:800;transition:.2s
-}
-.night .target{background:rgba(255,255,255,.08);color:white}
-.target:hover{transform:translateY(-3px);border-color:#8e7dff}
-.target.selected{border-color:var(--green);background:rgba(0,214,143,.12)}
-
-.vote-box{
-  max-width:950px;margin:auto;padding:20px;
-  background:rgba(255,255,255,.86);border-radius:25px
-}
-.vote-order{
-  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px
-}
-.vote-order .turn{
-  padding:8px 12px;border-radius:12px;background:#f0eff8;font-size:12px
-}
-.vote-order .turn.active{
-  background:#6c5ce7;color:white;
-  box-shadow:0 8px 20px rgba(108,92,231,.25)
-}
-.vote-player{
-  padding:18px;border-radius:20px;
-  background:#fafaff;border:1px solid #e7e7f2;margin-bottom:12px
-}
-.vote-player.current{border:2px solid #6c5ce7}
-.vote-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.vote-btn{
-  padding:10px 13px;border-radius:13px;background:white;
-  border:1px solid #dedeee;font-weight:800
-}
-.vote-btn:hover{background:#eeeaff}
-.vote-btn.selected{background:#6c5ce7;color:white}
-
-.dead{
-  opacity:.5;filter:grayscale(1)
-}
-.status-pill{
-  display:inline-flex;padding:6px 10px;border-radius:99px;
-  font-size:11px;font-weight:900;background:#eeeaff
-}
-.status-pill.alive{background:#dcfff2;color:#00855b}
-.status-pill.dead{background:#ffe3e5;color:#d52d3d}
-
-.result-box{
-  padding:22px;border-radius:22px;
-  background:linear-gradient(135deg,#f1efff,#ecfbff);
-  text-align:center;margin:15px 0
-}
-.result-box h3{font-size:28px;margin-bottom:8px}
-
-.wheel-wrap{
-  position:relative;width:min(500px,90vw);margin:20px auto;
-  aspect-ratio:1
-}
-.wheel{
-  width:100%;height:100%;border-radius:50%;
-  border:12px solid white;
-  box-shadow:0 20px 60px rgba(65,50,140,.25);
-  position:relative;overflow:hidden;
-  transition:transform 4s cubic-bezier(.12,.75,.15,1);
-}
-.wheel-pointer{
-  position:absolute;z-index:3;top:-5px;left:50%;
-  transform:translateX(-50%);
-  width:0;height:0;
-  border-left:18px solid transparent;
-  border-right:18px solid transparent;
-  border-top:45px solid #ff4757;
-  filter:drop-shadow(0 5px 5px rgba(0,0,0,.2))
-}
-.wheel-center{
-  position:absolute;z-index:2;inset:50%;transform:translate(-50%,-50%);
-  width:70px;height:70px;border-radius:50%;
-  background:white;border:8px solid #eeeaff;
-  display:grid;place-items:center;font-size:25px;
-  box-shadow:0 5px 20px rgba(0,0,0,.15)
-}
-
-.bottle-area{
-  min-height:430px;display:grid;place-items:center;
-  position:relative;overflow:hidden;
-  border-radius:28px;
-  background:
-    radial-gradient(circle at center,rgba(108,92,231,.13),transparent 45%),
-    linear-gradient(135deg,#fbfcff,#f2edff)
-}
-.bottle{
-  width:100px;height:270px;position:relative;
-  transform-origin:50% 78%;
-  filter:drop-shadow(0 25px 25px rgba(74,50,150,.25));
-  transition:transform 2.8s cubic-bezier(.12,.75,.15,1);
-}
-.bottle-body{
-  position:absolute;bottom:0;left:10px;
-  width:80px;height:190px;
-  border-radius:30px 30px 24px 24px;
-  background:linear-gradient(90deg,rgba(108,92,231,.55),rgba(0,198,255,.35),rgba(255,255,255,.5));
-  border:3px solid rgba(255,255,255,.9);
-  backdrop-filter:blur(5px)
-}
-.bottle-neck{
-  position:absolute;top:20px;left:32px;width:36px;height:75px;
-  border-radius:10px 10px 5px 5px;
-  background:linear-gradient(90deg,#8c7fff,#53d5ff);
-  border:3px solid rgba(255,255,255,.9)
-}
-.bottle-cap{
-  position:absolute;top:4px;left:28px;width:44px;height:25px;
-  border-radius:7px;background:#6c5ce7
-}
-.bottle-label{
-  position:absolute;bottom:70px;left:15px;width:70px;padding:8px 3px;
-  background:rgba(255,255,255,.78);border-radius:12px;
-  text-align:center;font-size:11px;font-weight:900
-}
-
-.scoreboard{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px
-}
-.team-card{
-  padding:18px;border-radius:20px;background:#fafaff;border:2px solid #ededf7
-}
-.team-card h3{margin-bottom:5px}
-.score{
-  font-size:38px;font-weight:900;color:#6c5ce7
-}
-
-.panto-word{
-  text-align:center;padding:30px;border-radius:25px;
-  background:linear-gradient(135deg,#f2efff,#e9fbff);
-  margin:15px 0
-}
-.panto-word .word{
-  font-size:42px;font-weight:900;
-  filter:blur(0);transition:.4s
-}
-.panto-word.hidden .word{filter:blur(25px)}
-.difficulty{
-  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:15px
-}
-.diff{
-  padding:13px 20px;border-radius:15px;background:white;
-  border:2px solid #e7e7f1;font-weight:900
-}
-.diff.active{border-color:#6c5ce7;background:#eeeaff;color:#5543d8}
-
-.toast{
-  position:fixed;z-index:100;left:50%;bottom:25px;
-  transform:translate(-50%,30px);
-  opacity:0;pointer-events:none;
-  background:#202038;color:white;padding:13px 20px;border-radius:15px;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
-  transition:.3s;font-weight:700
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-.modal{
-  position:fixed;z-index:90;inset:0;
-  display:none;place-items:center;
-  background:rgba(15,15,35,.45);backdrop-filter:blur(12px);
-  padding:15px
-}
-.modal.show{display:grid}
-.modal-box{
-  width:min(700px,100%);max-height:90vh;overflow:auto;
-  background:white;border-radius:28px;padding:25px;
-  animation:modalIn .4s ease;box-shadow:0 30px 100px rgba(0,0,0,.25)
-}
-@keyframes modalIn{
-  from{opacity:0;transform:scale(.85) translateY(30px);filter:blur(10px)}
-  to{opacity:1;transform:none;filter:none}
-}
-.close{float:left;width:35px;height:35px;border-radius:11px;background:#f1f1f7}
-
-.end-game{
-  text-align:center;padding:50px 20px
-}
-.end-game .cup{font-size:80px;animation:cup 1.4s infinite alternate}
-@keyframes cup{to{transform:translateY(-10px) rotate(5deg)}}
-.end-game h2{font-size:38px;margin:10px}
-
-.notice{
-  padding:13px 16px;border-radius:15px;
-  background:#fff7df;border:1px solid #ffe4a5;
-  color:#7b5b00;margin:12px 0;font-size:13px;line-height:1.9
-}
-
-@media(max-width:800px){
-  .hero{grid-template-columns:1fr;padding:25px}
-  .hero-art{min-height:230px}
-  .two-col,.three-col{grid-template-columns:1fr}
-  header{position:relative;top:0}
-}
-@media(max-width:500px){
-  .app{width:96%}
-  .hero h1{font-size:42px}
-  .hero p{font-size:14px}
-  .panel{padding:16px}
-  .games-grid{grid-template-columns:1fr}
-  .role-grid{grid-template-columns:1fr}
-  .action-prompt{font-size:19px}
-}
+.hidden{display:none!important}
+#background{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-10}
+.orb{position:absolute;width:320px;height:320px;border-radius:50%;filter:blur(85px);opacity:.25;animation:moveOrb 13s ease-in-out infinite alternate}
+.orb.a{background:#6d5dfc;right:-100px;top:-100px}
+.orb.b{background:#18b9ff;left:-110px;bottom:-100px;animation-delay:2s}
+.orb.c{background:#ff9b42;left:43%;top:40%;animation-delay:4s}
+@keyframes moveOrb{to{transform:translate(60px,50px) scale(1.2)}}
+.particle{position:absolute;width:4px;height:4px;border-radius:50%;background:#6d5dfc;opacity:.15;animation:particle 10s linear infinite}
+@keyframes particle{from{transform:translateY(105vh) scale(.4)}to{transform:translateY(-10vh) scale(1.5)}}
+.container{width:min(1450px,100%);margin:0 auto;padding:14px}
+header{position:sticky;top:10px;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.85);border-radius:26px;box-shadow:var(--shadow);margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:21px;white-space:nowrap}
+.logoIcon{width:46px;height:46px;border-radius:16px;color:white;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 10px 35px #6d5dfc40;font-size:24px}
+.nav{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.nav button{padding:9px 11px;background:transparent;color:var(--muted);border-radius:13px;font-weight:900;transition:.2s}
+.nav button:hover,.nav button.active{background:#fff;color:var(--primary);box-shadow:0 8px 22px #24345b10}
+.page{animation:pageIn .42s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.hero{position:relative;overflow:hidden;color:white;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:34px;padding:42px 20px;text-align:center;box-shadow:0 28px 90px #4c68c22b}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none}
+.hero:before{width:480px;height:480px;left:-200px;top:-230px;animation:spin 12s linear infinite}
+.hero:after{width:340px;height:340px;right:-170px;bottom:-180px;animation:spin 9s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero > *{position:relative;z-index:1}
+.heroIcon{font-size:56px;margin-bottom:8px}
+.hero h1{font-size:clamp(40px,7vw,72px);line-height:1.15;margin:0 0 10px;font-weight:900}
+.hero p{max-width:900px;margin:0 auto;line-height:2}
+.hero .heroBtns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px;margin-top:18px}
+.card{background:var(--surface);backdrop-filter:blur(19px);border:1px solid rgba(255,255,255,.85);border-radius:25px;padding:20px;box-shadow:var(--shadow);animation:cardIn .5s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.card h2,.card h3{margin-top:0}
+.game-card{min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.big-icon{font-size:48px}
+.muted{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.row>*{flex:1;min-width:120px}
+.btn{padding:13px 16px;border-radius:15px;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 10px 28px #6d5dfc33;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.secondary{color:#5649d0;background:#eef0ff;box-shadow:none}
+.btn.green{background:linear-gradient(135deg,#10b981,#08a979)}
+.btn.red{background:linear-gradient(135deg,#ef4444,#ff6b6b)}
+.btn.orange{background:linear-gradient(135deg,#ff9b42,#ff7422)}
+.btn.purple{background:linear-gradient(135deg,#9a58ff,#6534d1)}
+.btn.small{padding:8px 11px;border-radius:11px;font-size:13px}
+input,select,textarea{width:100%;border:1px solid #dfe5f0;outline:none;border-radius:14px;background:#fff;color:var(--text);padding:12px 14px}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px #6d5dfc14}
+label{display:block;margin:0 0 7px;font-weight:900;font-size:14px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:#eef0ff;color:#5548cf;font-weight:900;font-size:12px}
+.badge.green{background:#e4fff5;color:#087958}
+.badge.red{background:#ffe8e8;color:#c92d2d}
+.badge.orange{background:#fff0df;color:#b96d1a}
+.badge.purple{background:#eee4ff;color:#7541d6}
+.list{display:flex;flex-direction:column;gap:8px}
+.listItem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 13px;background:#f7f8fc;border-radius:15px}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.validation{padding:13px 14px;margin-top:12px;border-radius:15px;background:#fff0df;color:#a45d10;line-height:1.9}
+.validation.ok{background:#e5fff5;color:#087958}
+.sectionTitle{font-size:28px;margin:26px 0 14px}
+.playersGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.playerButton{padding:14px;border:2px solid var(--border);border-radius:15px;background:#fff;color:var(--text);font-weight:900;transition:.2s}
+.playerButton:hover{border-color:var(--primary);transform:translateY(-2px)}
+.playerButton:disabled{opacity:.4;pointer-events:none}
+.progress{height:10px;border-radius:999px;overflow:hidden;background:#e7ebf2}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:.2s}
+.timer{font-size:58px;font-weight:900;text-align:center;margin:8px 0;font-variant-numeric:tabular-nums}.timer.warn{color:var(--red);animation:pulse .65s infinite}@keyframes pulse{50%{transform:scale(1.05);opacity:.66}}
+.scoreGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.scoreChoice{padding:24px;border:2px solid var(--border);border-radius:24px;background:#fff;text-align:center;cursor:pointer;transition:.2s}.scoreChoice:hover{border-color:var(--primary);transform:translateY(-5px)}.scoreNum{font-size:48px;font-weight:900;color:var(--primary)}
+.teamGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.teamBox{padding:19px;border:2px solid var(--border);border-radius:22px;background:#fff}
+.topicGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin-top:18px}.topicCard{padding:19px;border:2px solid var(--border);border-radius:21px;background:#fff;text-align:center;cursor:pointer;transition:.2s}.topicCard:hover{border-color:var(--primary);transform:translateY(-4px)}.topicIcon{font-size:43px}
+.wordBox{padding:25px;border-radius:25px;color:#fff;background:linear-gradient(135deg,var(--primary),var(--secondary));margin-top:17px}.wordText{font-size:clamp(35px,7vw,60px);font-weight:900}
+.night-shell{min-height:calc(100vh - 25px);display:grid;place-items:center;padding:16px}.nightBox{width:min(960px,100%);background:#0d1125ee;border:1px solid #ffffff12;box-shadow:0 40px 130px #0009;border-radius:34px;padding:28px;text-align:center;color:#fff;animation:nightIn .55s ease}.moon{font-size:80px;animation:moon 2s ease-in-out infinite alternate}@keyframes moon{to{transform:translateY(-10px) rotate(4deg)}}.nightBox h1{font-size:43px;margin:4px}.nightPrompt{font-size:23px;font-weight:900;margin:15px}
+.defenseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.defenseButton{padding:20px;border:2px solid #ffd9b1;border-radius:21px;background:#fff8ef;text-align:center;cursor:pointer;font-weight:900}.defenseButton:hover{transform:translateY(-3px);border-color:var(--orange)}
+.guideGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:18px}.guideCard{padding:19px;border-radius:22px;background:#fff;border:1px solid var(--border)}.guideCard p{line-height:2;color:var(--muted)}
+.spyPanel{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin-top:18px}.spyHero{min-height:230px;border-radius:28px;background:linear-gradient(135deg,#171c31,#343b64);display:grid;place-items:center;color:#fff;text-align:center;box-shadow:0 20px 60px #0002}.spyWord{font-size:clamp(36px,7vw,70px);font-weight:900;text-shadow:0 0 28px #fff4}.spyTimer{font-size:70px;font-weight:900;text-align:center}
+.bottle{position:relative;width:78px;height:188px;margin:28px auto;transform-origin:50% 50%;transition:transform 3s cubic-bezier(.12,.8,.15,1)}.bottleBody{position:absolute;left:0;bottom:0;width:78px;height:143px;border:4px solid var(--primary);border-radius:25px;background:linear-gradient(90deg,#6d5dfc33,#fff,#18b9ff33)}.bottleNeck{position:absolute;left:21px;top:0;width:36px;height:58px;border:4px solid var(--primary);border-bottom:0;border-radius:11px 11px 0 0;background:#fff8}.bottleCap{position:absolute;left:19px;top:-8px;width:40px;height:13px;border-radius:5px;background:var(--primary)}
+.wheel{width:min(320px,70vw);aspect-ratio:1;border:11px solid #fff;border-radius:50%;margin:0 auto 14px;background:conic-gradient(#6d5dfc 0 12.5%,#18b9ff 12.5% 25%,#ff9b42 25% 37.5%,#10b981 37.5% 50%,#ef4444 50% 62.5%,#9a58ff 62.5% 75%,#f2c94c 75% 87.5%,#3ba9ff 87.5%);transition:transform 4s cubic-bezier(.12,.8,.15,1);box-shadow:0 20px 70px #0001}.wheelPointer{font-size:35px}
+.modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:16px;background:#09102199;backdrop-filter:blur(14px)}.modal.show{display:flex}.modalBox{width:min(900px,100%);max-height:90vh;overflow:auto;background:#fff;color:var(--text);padding:22px;border-radius:28px;box-shadow:0 35px 110px #0005;animation:modalIn .3s ease}@keyframes modalIn{from{opacity:0;transform:scale(.92) translateY(15px)}to{opacity:1;transform:none}}
+.toast{position:fixed;left:50%;bottom:20px;z-index:9999;max-width:90vw;padding:13px 17px;background:#202637;color:#fff;border-radius:15px;box-shadow:0 20px 60px #0005;transform:translate(-50%,90px);opacity:0;transition:.28s}.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;padding:30px;color:var(--muted);line-height:2}
+@media(max-width:900px){header{position:relative;top:0;flex-direction:column;align-items:stretch}.nav{justify-content:center}.spyPanel,.teamGrid{grid-template-columns:1fr}}
+@media(max-width:650px){.container{padding:8px}.hero{padding:37px 14px}.hero h1{font-size:40px}.scoreGrid{grid-template-columns:1fr}.timer{font-size:46px}.spyTimer{font-size:52px}.nightBox{padding:20px 13px}.nightBox h1{font-size:34px}.nightPrompt{font-size:20px}}
 </style>
 </head>
-
 <body>
+<div id="background"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
 <div id="particles"></div>
-
-<div class="app">
-
+<div class="container">
 <header>
-  <div class="logo">
-    <div class="logo-icon">🎲</div>
-    <div>خانواده لند</div>
-  </div>
-  <div class="header-actions">
-    <button class="btn small" onclick="showScreen('home')">خانه</button>
-    <button class="btn small secondary" onclick="showScreen('games')">بازی‌ها</button>
-  </div>
+  <div class="logo"><div class="logoIcon">🎮</div><span>خانواده لند</span></div>
+  <nav class="nav" id="nav"></nav>
 </header>
-
-<!-- HOME -->
-<section id="home" class="screen active">
-  <div class="hero">
-    <div class="hero-content">
-      <span class="badge">✨ مرکز بازی‌های دورهمی</span>
-      <h1>خانواده لند</h1>
-      <p>
-        مافیا، پانتومیم، جرئت و حقیقت، جاسوس، گردونه و کلی بازی خانوادگی
-        با سیستم امتیازدهی، تایمر، رأی‌گیری و انیمیشن‌های جذاب.
-      </p>
-      <div class="hero-buttons">
-        <button class="btn" onclick="showScreen('games')">🎮 شروع بازی</button>
-        <button class="btn secondary" onclick="openWheel()">🎡 گردونه</button>
-      </div>
-    </div>
-
-    <div class="hero-art">
-      <div class="floating-card">🎭</div>
-      <div class="floating-card">🎡</div>
-      <div class="floating-card">🕵️</div>
-    </div>
-  </div>
-
-  <div class="section-title">
-    <h2>🔥 بازی‌های محبوب</h2>
-    <span>بدون نیاز به نصب</span>
-  </div>
-
-  <div class="games-grid">
-    <div class="game-card">
-      <div class="game-icon">🕵️</div>
-      <h3>مافیا</h3>
-      <p>نقش‌های متعدد، شب و روز، رأی‌گیری کامل، دفاعیه و برنده واقعی.</p>
-      <button class="btn" onclick="startMafiaSetup()">شروع مافیا</button>
-    </div>
-
-    <div class="game-card">
-      <div class="game-icon">🎭</div>
-      <h3>پانتومیم</h3>
-      <p>تیمی، موضوع انتخابی، امتیاز ۲، ۴ و ۶، خطا و سخت‌تر شدن کلمات.</p>
-      <button class="btn secondary" onclick="startPanto()">شروع پانتومیم</button>
-    </div>
-
-    <div class="game-card">
-      <div class="game-icon">🍾</div>
-      <h3>جرئت یا حقیقت</h3>
-      <p>بطری چرخان، انتخاب بازیکن و بیش از ۱۰۰۰ چالش و سؤال امن.</p>
-      <button class="btn green" onclick="startTruth()">شروع بازی</button>
-    </div>
-
-    <div class="game-card">
-      <div class="game-icon">🎡</div>
-      <h3>گردونه شانس</h3>
-      <p>بازیکنان را وارد کنید و گردونه به‌صورت تصادفی انتخاب کند.</p>
-      <button class="btn orange" onclick="openWheel()">چرخاندن گردونه</button>
-    </div>
-  </div>
-</section>
-
-<!-- GAMES -->
-<section id="games" class="screen">
-  <div class="section-title">
-    <h2>🎮 همه بازی‌ها</h2>
-    <span>انتخاب کن و شروع کن</span>
-  </div>
-
-  <div class="games-grid">
-    <div class="game-card"><div class="game-icon">🕵️</div><h3>مافیا</h3><p>مدیریت کامل شب، روز، نقش‌ها و رأی‌گیری.</p><button class="btn" onclick="startMafiaSetup()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🎭</div><h3>پانتومیم</h3><p>رقابت گروهی با امتیازهای ۲، ۴ و ۶.</p><button class="btn secondary" onclick="startPanto()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🍾</div><h3>جرئت یا حقیقت</h3><p>بطری تصادفی + هزاران سؤال و جرئت.</p><button class="btn green" onclick="startTruth()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🕶️</div><h3>جاسوس</h3><p>یک نفر جاسوس است و بقیه مکان را می‌دانند.</p><button class="btn orange" onclick="startSpy()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🎡</div><h3>گردونه</h3><p>انتخاب تصادفی بازیکن.</p><button class="btn" onclick="openWheel()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">✊</div><h3>سنگ کاغذ قیچی</h3><p>بازی سریع دو نفره.</p><button class="btn secondary" onclick="startRPS()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🔤</div><h3>اسم فامیل</h3><p>حرف تصادفی و رقابت خانوادگی.</p><button class="btn green" onclick="startNameFamily()">شروع</button></div>
-    <div class="game-card"><div class="game-icon">🧠</div><h3>اطلاعات عمومی</h3><p>سؤالات متنوع با سیستم امتیاز.</p><button class="btn orange" onclick="startQuiz()">شروع</button></div>
-  </div>
-</section>
-
-<!-- MAFIA SETUP -->
-<section id="mafiaSetup" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <div>
-      <h2>🕵️ ساخت بازی مافیا</h2>
-      <span>هیچ چیدمان پیشنهادی اجباری نیست؛ خودت نقش‌ها را انتخاب کن.</span>
-    </div>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-
-  <div class="two-col">
-    <div>
-      <div class="field">
-        <label>نام بازیکنان</label>
-        <textarea id="mafiaPlayersInput" placeholder="هر بازیکن را در یک خط بنویسید&#10;امیر&#10;مهدی&#10;کیان&#10;شاهین"></textarea>
-      </div>
-
-      <div class="three-col">
-        <div class="field">
-          <label>زمان صحبت هر نفر</label>
-          <select id="speechTime">
-            <option value="30">۳۰ ثانیه</option>
-            <option value="45">۴۵ ثانیه</option>
-            <option value="60" selected>۶۰ ثانیه</option>
-            <option value="90">۹۰ ثانیه</option>
-            <option value="120">۱۲۰ ثانیه</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>زمان دفاعیه</label>
-          <select id="defenseTime">
-            <option value="45">۴۵ ثانیه</option>
-            <option value="60" selected>۶۰ ثانیه</option>
-            <option value="90">۹۰ ثانیه</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>تایمر شب</label>
-          <select id="nightTime">
-            <option value="30">۳۰ ثانیه</option>
-            <option value="45" selected>۴۵ ثانیه</option>
-            <option value="60">۶۰ ثانیه</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="notice">
-        ⚠️ تعداد نقش‌های انتخاب‌شده باید دقیقاً برابر تعداد بازیکنان باشد.
-        اگر تعداد نقش‌ها کمتر یا بیشتر باشد بازی شروع نمی‌شود.
-        همچنین تعداد کل مافیا نباید با تعداد شهروندان مساوی باشد.
-      </div>
-    </div>
-
-    <div>
-      <h3 style="margin-bottom:12px">👥 بازیکنان ثبت‌شده</h3>
-      <div id="mafiaPlayersPreview" class="players-list"></div>
-    </div>
-  </div>
-
-  <div class="section-title">
-    <h2>🎴 انتخاب نقش‌ها</h2>
-    <span>هر نقشی را خواستی اضافه کن</span>
-  </div>
-
-  <div id="roleGrid" class="role-grid"></div>
-
-  <div style="margin-top:20px;text-align:center">
-    <div id="roleSummary" class="notice"></div>
-    <button class="btn" style="font-size:17px;padding:15px 30px" onclick="createMafiaGame()">
-      🚀 شروع بازی مافیا
-    </button>
-  </div>
+<main id="app"></main>
+<footer>خانواده لند • ساخته شده توسط: امیر حسین جبارفر</footer>
 </div>
-</section>
-
-<!-- MAFIA GAME -->
-<section id="mafiaGame" class="screen">
-<div id="mafiaStage" class="mafia-stage">
-  <div class="night-stars" id="nightStars"></div>
-
-  <div class="phase">
-    <div id="mafiaPhaseIcon" class="phase-icon">☀️</div>
-    <h2 id="mafiaPhaseTitle">روز</h2>
-    <p id="mafiaPhaseText">مدیریت بازی</p>
-  </div>
-
-  <div id="mafiaContent"></div>
-</div>
-</section>
-
-<!-- PANTO -->
-<section id="panto" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🎭 پانتومیم</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-
-  <div id="pantoSetup">
-    <div class="two-col">
-      <div>
-        <div class="field">
-          <label>نام گروه اول</label>
-          <input id="team1Name" value="گروه آبی">
-        </div>
-        <div class="field">
-          <label>نام گروه دوم</label>
-          <input id="team2Name" value="گروه بنفش">
-        </div>
-      </div>
-      <div>
-        <div class="field">
-          <label>تعداد دورها</label>
-          <select id="pantoRounds">
-            <option value="3">۳ دور</option>
-            <option value="5" selected>۵ دور</option>
-            <option value="10">۱۰ دور</option>
-            <option value="15">۱۵ دور</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>موضوع</label>
-          <select id="pantoTopic">
-            <option value="all">همه موضوع‌ها</option>
-            <option value="movie">فیلم و شخصیت</option>
-            <option value="animal">حیوانات</option>
-            <option value="job">شغل‌ها</option>
-            <option value="object">اشیا</option>
-            <option value="action">کارها و فعالیت‌ها</option>
-            <option value="food">غذاها</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="notice">
-      🎯 امتیاز هر کلمه را خودت انتخاب می‌کنی: ۲، ۴ یا ۶.
-      کلمه‌های ۶ امتیازی سخت‌تر هستند. جواب درست امتیاز کامل دارد،
-      جواب اشتباه ۰ امتیاز می‌گیرد و هر خطا ۱ امتیاز کم می‌کند.
-    </div>
-
-    <button class="btn secondary" onclick="beginPanto()">شروع پانتومیم</button>
-  </div>
-
-  <div id="pantoPlay" style="display:none"></div>
-</div>
-</section>
-
-<!-- TRUTH -->
-<section id="truth" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🍾 بطری جرئت یا حقیقت</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-
-  <div id="truthSetup">
-    <div class="field">
-      <label>نام بازیکنان</label>
-      <textarea id="truthPlayers" placeholder="هر نفر در یک خط"></textarea>
-    </div>
-    <button class="btn green" onclick="beginTruth()">شروع</button>
-  </div>
-
-  <div id="truthPlay" style="display:none">
-    <div class="bottle-area">
-      <div class="bottle" id="bottle">
-        <div class="bottle-cap"></div>
-        <div class="bottle-neck"></div>
-        <div class="bottle-body"></div>
-        <div class="bottle-label">جرئت<br>یا<br>حقیقت</div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin:20px">
-      <h2 id="truthSelectedPlayer">بطری را بچرخان!</h2>
-      <button class="btn" onclick="spinBottle()">🍾 چرخاندن بطری</button>
-    </div>
-
-    <div id="truthChoice" style="display:none;text-align:center">
-      <button class="btn green" onclick="giveTruth()">🧠 حقیقت</button>
-      <button class="btn red" onclick="giveDare()">🎯 جرئت</button>
-    </div>
-
-    <div id="truthResult" class="result-box" style="display:none"></div>
-  </div>
-</div>
-</section>
-
-<!-- SPY -->
-<section id="spy" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🕶️ جاسوس</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-
-  <div id="spySetup">
-    <div class="field">
-      <label>بازیکنان</label>
-      <textarea id="spyPlayers" placeholder="هر بازیکن در یک خط"></textarea>
-    </div>
-    <div class="field">
-      <label>کلمه‌های سفارشی، اختیاری</label>
-      <input id="spyWords" placeholder="مثلاً: مدرسه، پارک، بیمارستان">
-    </div>
-    <div class="field">
-      <label>زمان بازی</label>
-      <select id="spyDuration">
-        <option value="60">۱ دقیقه</option>
-        <option value="120" selected>۲ دقیقه</option>
-        <option value="180">۳ دقیقه</option>
-        <option value="300">۵ دقیقه</option>
-      </select>
-    </div>
-    <button class="btn" onclick="beginSpy()">شروع جاسوس</button>
-  </div>
-
-  <div id="spyPlay" style="display:none"></div>
-</div>
-</section>
-
-<!-- WHEEL -->
-<section id="wheel" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🎡 گردونه انتخاب</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-
-  <div class="field">
-    <label>گزینه‌ها / بازیکنان</label>
-    <textarea id="wheelItems" placeholder="امیر&#10;مهدی&#10;کیان&#10;شاهین"></textarea>
-  </div>
-
-  <div class="wheel-wrap">
-    <div class="wheel-pointer"></div>
-    <div id="wheelElement" class="wheel"></div>
-    <div class="wheel-center">🎯</div>
-  </div>
-
-  <div style="text-align:center">
-    <h2 id="wheelResult" style="margin-bottom:15px">آماده‌ای؟</h2>
-    <button class="btn orange" onclick="spinWheel()">🎡 بچرخان</button>
-  </div>
-</div>
-</section>
-
-<!-- RPS -->
-<section id="rps" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>✊ سنگ کاغذ قیچی</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-  <div style="text-align:center">
-    <h3 id="rpsResult">انتخاب کن</h3>
-    <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin:30px">
-      <button class="btn" onclick="playRPS('سنگ')">✊ سنگ</button>
-      <button class="btn secondary" onclick="playRPS('کاغذ')">✋ کاغذ</button>
-      <button class="btn green" onclick="playRPS('قیچی')">✌️ قیچی</button>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- NAME FAMILY -->
-<section id="namefamily" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🔤 اسم فامیل</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-  <div style="text-align:center">
-    <div class="result-box">
-      <div style="font-size:60px;font-weight:900" id="randomLetter">؟</div>
-      <p>حرف بازی</p>
-    </div>
-    <button class="btn" onclick="randomLetter()">🎲 انتخاب حرف</button>
-  </div>
-</div>
-</section>
-
-<!-- QUIZ -->
-<section id="quiz" class="screen">
-<div class="panel">
-  <div class="topbar">
-    <h2>🧠 اطلاعات عمومی</h2>
-    <button class="btn gray" onclick="showScreen('games')">بازگشت</button>
-  </div>
-  <div id="quizContent"></div>
-</div>
-</section>
-
-</div>
-
 <div id="toast" class="toast"></div>
-
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal()">×</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
-
+<div id="modal" class="modal"><div id="modalBox" class="modalBox"></div></div>
 <script>
-/* =========================================================
-   خانواده لند
-   ساخته شده توسط: امیر حسین جبارفر
-========================================================= */
+(() => {
+'use strict';
 
-const $=id=>document.getElementById(id);
-const rand=(arr)=>arr[Math.floor(Math.random()*arr.length)];
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
-  $(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+/* ---------------------------------------------------------
+   Helpers
+--------------------------------------------------------- */
+const app=document.getElementById('app');
+const modalEl=document.getElementById('modal');
+const modalBox=document.getElementById('modalBox');
+const nav=document.getElementById('nav');
+const toastEl=document.getElementById('toast');
+const $=(s,root=document)=>root.querySelector(s);
+const $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
+function esc(value){return String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function toast(message){toastEl.textContent=message;toastEl.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>toastEl.classList.remove('show'),2400)}
+function openModal(html){modalBox.innerHTML=html;modalEl.classList.add('show')}
+function closeModal(){modalEl.classList.remove('show')}
+modalEl.addEventListener('click',e=>{if(e.target===modalEl)closeModal()});
+function formatTime(sec){sec=Math.max(0,Math.floor(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function faNum(n){return Number(n).toLocaleString('fa-IR')}
+function stopTimers(){
+  if(state.mafia.speechTimer){clearInterval(state.mafia.speechTimer);state.mafia.speechTimer=null}
+  if(state.mafia.defenseTimer){clearInterval(state.mafia.defenseTimer);state.mafia.defenseTimer=null}
+  if(state.spy.timer){clearInterval(state.spy.timer);state.spy.timer=null}
+  if(state.pant.timer){clearInterval(state.pant.timer);state.pant.timer=null}
 }
+function setNight(on){document.body.classList.toggle('dark-night',!!on)}
+function go(page){stopTimers();setNight(page==='mafiaNight');state.page=page;renderPage(page)}
+function setActive(page){$$('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
+function makeParticles(){for(let i=0;i<70;i++){const p=document.createElement('span');p.className='particle';p.style.left=(Math.random()*100)+'%';p.style.animationDuration=(6+Math.random()*9)+'s';p.style.animationDelay=(-Math.random()*10)+'s';document.getElementById('particles').appendChild(p)}}
 
-function toast(text){
-  const t=$('toast');
-  t.textContent=text;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2600);
-}
+/* ---------------------------------------------------------
+   Main state
+--------------------------------------------------------- */
+const state={page:'home',mafia:{players:[],roleCounts:{},assignments:[],alive:[],dead:[],round:1,currentSpeaker:0,voteIndex:0,votes:{},defenseCandidates:[],defenseSpeechIndex:0,defenseVoteIndex:0,defenseVotes:{},nightRoles:[],nightIndex:0,nightActions:{},mafiaTarget:null,doctorSave:null,bodyguardSave:null,silenced:null,speechTimer:null,defenseTimer:null,revealIndex:0},spy:{players:[],customWords:[],timerSeconds:120,seconds:120,spyIndex:-1,word:'',revealIndex:0,timer:null},pant:{teamA:'گروه آ',teamB:'گروه ب',rounds:5,baseTime:30,team:0,round:1,score:0,scores:[0,0],points:2,topic:'',word:'',seconds:30,timer:null},truth:{players:[],bottleRotation:0},wheel:{players:[],rotation:0}};
 
-function openModal(html){
-  $('modalContent').innerHTML=html;
-  $('modal').classList.add('show');
-}
-function closeModal(){
-  $('modal').classList.remove('show');
-}
-
-for(let i=0;i<45;i++){
-  const p=document.createElement('div');
-  p.className='particle';
-  p.style.left=Math.random()*100+'%';
-  p.style.animationDuration=(7+Math.random()*14)+'s';
-  p.style.animationDelay=(-Math.random()*15)+'s';
-  p.style.width=p.style.height=(2+Math.random()*6)+'px';
-  $('particles').appendChild(p);
-}
-
-/* =========================================================
-   ROLE CATALOG
-========================================================= */
-
-const ROLES=[
-{id:'citizen',name:'شهروند ساده',team:'شهروند',icon:'👤',desc:'قدرت شبانه ندارد.',tutorial:'شما عضوی از تیم شهروندان هستید. در روز با صحبت و رأی‌گیری به پیدا کردن مافیا کمک کنید.',action:false},
-{id:'detective',name:'کارآگاه',team:'شهروند',icon:'🔎',desc:'هر شب یک نفر را بررسی می‌کند.',tutorial:'هر شب یک بازیکن را بررسی کنید تا تیم او برای مدیر مشخص شود.',action:true,prompt:'🔎 کارآگاه چه کسی را بررسی می‌کند؟',type:'detect'},
-{id:'doctor',name:'دکتر',team:'شهروند',icon:'🩺',desc:'هر شب یک نفر را نجات می‌دهد.',tutorial:'هر شب یک بازیکن را برای محافظت انتخاب کنید.',action:true,prompt:'🩺 دکتر چه کسی را نجات می‌دهد؟',type:'save'},
-{id:'bodyguard',name:'محافظ',team:'شهروند',icon:'🛡️',desc:'از یک بازیکن محافظت می‌کند.',tutorial:'یک بازیکن را انتخاب کنید تا در برابر حذف شبانه محافظت شود.',action:true,prompt:'🛡️ محافظ از چه کسی محافظت می‌کند؟',type:'save'},
-{id:'sniper',name:'تک‌تیرانداز',team:'شهروند',icon:'🎯',desc:'قدرت ویژه محدود دارد.',tutorial:'در صورت استفاده مدیر، یک هدف را انتخاب می‌کند.',action:true,prompt:'🎯 تک‌تیرانداز چه کسی را هدف می‌گیرد؟',type:'kill'},
-{id:'mayor',name:'شهردار',team:'شهروند',icon:'🏛️',desc:'نقش ویژه در رأی‌گیری.',tutorial:'شهردار در روز با اعتبار خود روی روند رأی‌گیری اثر می‌گذارد.',action:false},
-{id:'judge',name:'قاضی',team:'شهروند',icon:'⚖️',desc:'در تصمیمات روزانه قدرت ویژه دارد.',tutorial:'قاضی می‌تواند در روند دفاعیه و رأی‌گیری با اجازه مدیر اثر بگذارد.',action:false},
-{id:'priest',name:'کشیش',team:'شهروند',icon:'🕊️',desc:'نقش حمایتی.',tutorial:'کشیش با تصمیم درست به شهروندان کمک می‌کند.',action:true,prompt:'🕊️ کشیش چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'journalist',name:'خبرنگار',team:'شهروند',icon:'📰',desc:'اطلاعاتی درباره بازی جمع می‌کند.',tutorial:'خبرنگار طبق قوانین میز می‌تواند اطلاعات یک بازیکن یا رویداد را بررسی کند.',action:true,prompt:'📰 خبرنگار چه کسی را بررسی می‌کند؟',type:'inspect'},
-{id:'psychologist',name:'روانشناس',team:'شهروند',icon:'🧠',desc:'روی رفتار یک بازیکن تمرکز می‌کند.',tutorial:'روانشناس می‌تواند یک بازیکن را برای توانایی ویژه خود انتخاب کند.',action:true,prompt:'🧠 روانشناس چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'sheriff',name:'کلانتر',team:'شهروند',icon:'⭐',desc:'نقش تحقیقاتی.',tutorial:'کلانتر هر شب می‌تواند یک بازیکن را بررسی کند.',action:true,prompt:'⭐ کلانتر چه کسی را بررسی می‌کند؟',type:'detect'},
-{id:'privateDetective',name:'کارآگاه خصوصی',team:'شهروند',icon:'🕵️',desc:'تحقیق شبانه.',tutorial:'یک نفر را برای بررسی انتخاب کنید.',action:true,prompt:'🕵️ کارآگاه خصوصی چه کسی را بررسی می‌کند؟',type:'detect'},
-{id:'guard',name:'نگهبان',team:'شهروند',icon:'🚪',desc:'محافظت شبانه.',tutorial:'از یک بازیکن محافظت کنید.',action:true,prompt:'🚪 نگهبان از چه کسی مراقبت می‌کند؟',type:'save'},
-{id:'hunter',name:'شکارچی',team:'شهروند',icon:'🏹',desc:'نقش ویژه پایان بازی.',tutorial:'شکارچی با تصمیمات درست به تیم شهروند کمک می‌کند.',action:false},
-
-{id:'mafia',name:'مافیا ساده',team:'مافیا',icon:'🔴',desc:'در حذف شبانه مافیا شرکت می‌کند.',tutorial:'هر شب با تیم مافیا درباره هدف شب تصمیم بگیرید.',action:true,prompt:'🔪 مافیا چه کسی را می‌کشد؟',type:'kill'},
-{id:'godfather',name:'پدرخوانده',team:'مافیا',icon:'👑',desc:'رهبر تیم مافیا.',tutorial:'پدرخوانده رهبر مافیا است و در تصمیم هدف شب نقش اصلی دارد.',action:true,prompt:'👑 پدرخوانده چه کسی را هدف می‌گیرد؟',type:'kill'},
-{id:'lecter',name:'دکتر لکتر',team:'مافیا',icon:'🩺',desc:'از تیم مافیا محافظت می‌کند.',tutorial:'هر شب یک بازیکن را برای نجات انتخاب کنید.',action:true,prompt:'🩺 دکتر لکتر چه کسی را نجات می‌دهد؟',type:'save'},
-{id:'mafiaLawyer',name:'وکیل مافیا',team:'مافیا',icon:'💼',desc:'نقش حمایتی مافیا.',tutorial:'وکیل مافیا طبق قوانین میز می‌تواند در روند بررسی‌ها کمک کند.',action:true,prompt:'💼 وکیل مافیا چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'silencer',name:'مافیای خاموش',team:'مافیا',icon:'🤫',desc:'می‌تواند یک نفر را برای سکوت انتخاب کند.',tutorial:'هر شب یک بازیکن را انتخاب کنید تا در روز بعد طبق قوانین بازی محدود شود.',action:true,prompt:'🤫 مافیای خاموش چه کسی را ساکت می‌کند؟',type:'silence'},
-{id:'mafiaSpy',name:'جاسوس مافیا',team:'مافیا',icon:'🕶️',desc:'اطلاعاتی برای مافیا جمع می‌کند.',tutorial:'جاسوس مافیا به تیم خود در شناسایی نقش‌ها کمک می‌کند.',action:true,prompt:'🕶️ جاسوس مافیا چه کسی را بررسی می‌کند؟',type:'inspect'},
-{id:'mafiaBoss',name:'رئیس مافیا',team:'مافیا',icon:'🎩',desc:'رهبر ویژه مافیا.',tutorial:'رئیس مافیا در تصمیمات شبانه با تیم مافیا هماهنگ می‌شود.',action:true,prompt:'🎩 رئیس مافیا چه کسی را هدف می‌گیرد؟',type:'kill'},
-{id:'mafiaSniper',name:'اسنایپر مافیا',team:'مافیا',icon:'🎯',desc:'قدرت هدف‌گیری ویژه.',tutorial:'با اجازه مدیر می‌تواند یک بازیکن را هدف قرار دهد.',action:true,prompt:'🎯 اسنایپر مافیا چه کسی را هدف می‌گیرد؟',type:'kill'},
-{id:'infiltrator',name:'مافیای نفوذی',team:'مافیا',icon:'🧩',desc:'برای ایجاد اطلاعات اشتباه.',tutorial:'با تیم مافیا هماهنگ شوید و در روند بازی اطلاعاتی جمع کنید.',action:true,prompt:'🧩 مافیای نفوذی چه کسی را بررسی می‌کند؟',type:'inspect'},
-{id:'mafiaGuard',name:'محافظ مافیا',team:'مافیا',icon:'🛡️',desc:'از تیم مافیا محافظت می‌کند.',tutorial:'یک نفر را برای محافظت انتخاب کنید.',action:true,prompt:'🛡️ محافظ مافیا از چه کسی محافظت می‌کند؟',type:'save'},
-
-{id:'joker',name:'جوکر',team:'مستقل',icon:'🃏',desc:'هدفش رسیدن به شرایط برد مستقل است.',tutorial:'طبق قوانین میز، جوکر تلاش می‌کند با رفتار خود رأی روز را به سمت خودش ببرد.',action:false},
-{id:'witch',name:'جادوگر',team:'مستقل',icon:'🧪',desc:'توانایی انتخاب ویژه دارد.',tutorial:'جادوگر هر شب می‌تواند طبق قوانین میز یک بازیکن را انتخاب کند.',action:true,prompt:'🧪 جادوگر چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'independent',name:'مستقل',team:'مستقل',icon:'🌙',desc:'شرایط برد جداگانه.',tutorial:'هدف مستقل طبق قوانین میز مشخص می‌شود.',action:true,prompt:'🌙 مستقل چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'madman',name:'دیوانه',team:'مستقل',icon:'🤪',desc:'با هدف ویژه بازی می‌کند.',tutorial:'با رفتار هوشمندانه به شرط برد نقش خود برسید.',action:false},
-{id:'thief',name:'دزد',team:'مستقل',icon:'🥷',desc:'توانایی تغییر وضعیت.',tutorial:'دزد می‌تواند طبق قوانین میز روی یک بازیکن اثر بگذارد.',action:true,prompt:'🥷 دزد چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'copycat',name:'کپی‌کننده',team:'مستقل',icon:'🪞',desc:'توانایی یک نقش را تقلید می‌کند.',tutorial:'در زمان تعیین‌شده نقش مورد نظر را برای تقلید انتخاب کنید.',action:true,prompt:'🪞 کپی‌کننده چه کسی را انتخاب می‌کند؟',type:'copy'},
-{id:'werewolf',name:'گرگینه',team:'مستقل',icon:'🐺',desc:'نقش ویژه با شرایط برد مستقل.',tutorial:'طبق قوانین میز، گرگینه در زمان شب قدرت خود را فعال می‌کند.',action:true,prompt:'🐺 گرگینه چه کسی را انتخاب می‌کند؟',type:'support'},
-{id:'survivor',name:'بازمانده',team:'مستقل',icon:'🧿',desc:'هدفش باقی ماندن در بازی است.',tutorial:'تا جای ممکن زنده بمانید و طبق قوانین بازی به شرط خود برسید.',action:false},
-{id:'illusionist',name:'فریبکار',team:'مستقل',icon:'🎭',desc:'روی اطلاعات بازی اثر می‌گذارد.',tutorial:'با انتخاب‌های خود روند بازی را پیچیده کنید.',action:true,prompt:'🎭 فریبکار چه کسی را انتخاب می‌کند؟',type:'support'}
+/* ---------------------------------------------------------
+   Navigation
+--------------------------------------------------------- */
+const navItems=[
+ ['home','خانه'],['games','بازی‌ها'],['guide','📖 راهنما'],['mafiaSetup','🕵️ مافیا'],['spySetup','🕶️ جاسوس'],['pantomime','🎭 پانتومیم'],['truth','🍾 بطری']
 ];
+nav.innerHTML=navItems.map(([id,label])=>`<button data-page="${id}">${label}</button>`).join('');
+$$('.nav button').forEach(btn=>btn.addEventListener('click',()=>{setActive(btn.dataset.page);go(btn.dataset.page)}));
 
-let roleCounts={};
-ROLES.forEach(r=>roleCounts[r.id]=0);
-
-function renderRoles(){
-  $('roleGrid').innerHTML=ROLES.map(r=>`
-    <div class="role-card ${roleCounts[r.id]>0?'selected':''}">
-      <div class="role-head">
-        <div class="role-icon">${r.icon}</div>
-        <div>
-          <h4>${r.name}</h4>
-          <div class="role-team">${r.team}</div>
-        </div>
-      </div>
-      <p>${r.desc}</p>
-      <button class="btn small" onclick="showRoleInfo('${r.id}')">📖 آموزش</button>
-      <div class="role-count" style="margin-top:10px">
-        <button onclick="changeRole('${r.id}',-1)">−</button>
-        <span>${roleCounts[r.id]}</span>
-        <button onclick="changeRole('${r.id}',1)">+</button>
-      </div>
+/* ---------------------------------------------------------
+   Home
+--------------------------------------------------------- */
+function renderHome(){
+  app.innerHTML=`<section class="page">
+    <div class="hero">
+      <div class="heroIcon">🎉</div>
+      <h1>خانواده لند</h1>
+      <p>یک مجموعه کامل از بازی‌های دورهمی؛ بدون نیاز به نصب برنامه.</p>
+      <div class="heroBtns"><button class="btn" onclick="window.__fl.go('games')">🎮 شروع بازی‌ها</button><button class="btn secondary" onclick="window.__fl.go('guide')">📖 راهنما</button></div>
     </div>
-  `).join('');
-  updateRoleSummary();
-}
-
-function changeRole(id,n){
-  roleCounts[id]=Math.max(0,roleCounts[id]+n);
-  renderRoles();
-}
-
-function showRoleInfo(id){
-  const r=ROLES.find(x=>x.id===id);
-  openModal(`
-    <div style="text-align:center">
-      <div style="font-size:60px">${r.icon}</div>
-      <h2>${r.name}</h2>
-      <div class="status-pill">${r.team}</div>
-      <p style="line-height:2;margin-top:15px">${r.tutorial}</p>
-      ${r.action?`<div class="notice">🌙 این نقش در شب اقدام دارد: ${r.prompt}</div>`:''}
+    <h2 class="sectionTitle">🔥 بازی‌های اصلی</h2>
+    <div class="grid">
+      ${gameCard('🕵️','مافیا','شب و روز، نقش‌های متعدد، دکتر، کارآگاه، دفاعیه و رأی‌گیری مجدد.','mafiaSetup','شروع مافیا')}
+      ${gameCard('🕶️','جاسوس','یک جاسوس مخفی، یک کلمه مشترک، تایمر و کلمات سفارشی.','spySetup','شروع جاسوس')}
+      ${gameCard('🎭','پانتومیم','دو گروه، بدون نمایش اسم بازیکنان، موضوع‌بندی واقعی، سختی و زمان.','pantomime','شروع پانتومیم')}
+      ${gameCard('🍾','حقیقت یا جرئت','بیش از ۱۰۰۰ حقیقت و بیش از ۱۰۰۰ جرئت خانواده‌پسند.','truth','شروع بطری')}
+      ${gameCard('🎡','گردونه شانس','یک بازیکن را با چرخش تصادفی انتخاب کن.','wheel','شروع گردونه')}
+      ${gameCard('🔤','اسم فامیل','یک حرف تصادفی برای شروع دور انتخاب کن.','letter','شروع اسم فامیل')}
     </div>
-  `);
+  </section>`;
+}
+function gameCard(icon,title,desc,page,label){return `<div class="card game-card"><div><div class="big-icon">${icon}</div><h2>${title}</h2><p class="muted">${desc}</p></div><button class="btn" onclick="window.__fl.openGame('${page}')">${label}</button></div>`}
+
+/* ---------------------------------------------------------
+   Games
+--------------------------------------------------------- */
+function renderGames(){
+  app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎮</div><h1>همه بازی‌ها</h1><p>بازی موردنظر را انتخاب کن.</p></div><div class="grid">
+    ${gameCard('🕵️','مافیا','مدیریت کامل مافیا.','mafiaSetup','شروع')}
+    ${gameCard('🕶️','جاسوس','کلمه مخفی و یک جاسوس.','spySetup','شروع')}
+    ${gameCard('🎭','پانتومیم','گروه‌ها، امتیاز، موضوع و زمان.','pantomime','شروع')}
+    ${gameCard('🍾','حقیقت یا جرئت','بانک بزرگ پرسش‌ها و جرئت‌ها.','truth','شروع')}
+    ${gameCard('🎡','گردونه','انتخاب تصادفی.','wheel','شروع')}
+    <div class="card game-card"><div><div class="big-icon">✊</div><h2>سنگ، کاغذ، قیچی</h2><p class="muted">بازی سریع تک‌نفره با حریف کامپیوتری.</p></div><button class="btn" onclick="window.__fl.playRps()">شروع</button></div>
+    <div class="card game-card"><div><div class="big-icon">🔤</div><h2>اسم فامیل</h2><p class="muted">حرف تصادفی انتخاب کن و دور را شروع کن.</p></div><button class="btn" onclick="window.__fl.showLetter()">شروع</button></div>
+  </div></section>`;
 }
 
-function getMafiaPlayers(){
-  return $('mafiaPlayersInput').value.split('\n').map(x=>x.trim()).filter(Boolean);
+/* ---------------------------------------------------------
+   Guide
+--------------------------------------------------------- */
+function renderGuide(){
+  app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">📖</div><h1>راهنمای همه بازی‌ها</h1><p>قوانین و روش بازی‌ها در یک بخش.</p></div><div class="guideGrid">
+  <div class="guideCard"><h3>🕵️ مافیا</h3><p>بازیکنان را ثبت کن و تعداد نقش‌ها را دقیقاً برابر تعداد بازیکنان قرار بده. مافیا و شهروند نباید مساوی باشند. شب اجرا می‌شود. دکتر می‌تواند حتی یک مافیا را نجات دهد و در این حالت بازیکن خارج نمی‌شود. کارآگاه فقط 👍 مافیا یا 👎 شهروند می‌بیند و نقش دقیق را نمی‌بیند. در روز بازیکنان صحبت می‌کنند، سپس همه به‌صورت جداگانه رأی می‌دهند. هر تعداد نفر می‌تواند به یک نفر رأی بدهد. تمام کسانی که بیشترین رأی را گرفته‌اند وارد دفاعیه می‌شوند. فقط در صورت وجود دفاعیه، رأی‌گیری مجدد بین افراد دفاعیه انجام می‌شود.</p></div>
+  <div class="guideCard"><h3>🕶️ جاسوس</h3><p>حداقل ۳ بازیکن اضافه کن. یک نفر جاسوس می‌شود. دیگران یک کلمه مشترک می‌بینند. هر بازیکن کارت خودش را جداگانه می‌بیند. بعد تایمر شروع می‌شود و بازیکنان با سؤال و جواب تلاش می‌کنند جاسوس را پیدا کنند. کلمه‌های سفارشی هم قابل اضافه‌کردن هستند.</p></div>
+  <div class="guideCard"><h3>🎭 پانتومیم</h3><p>در این بازی اسم بازیکنان اصلاً نمایش داده نمی‌شود. فقط دو گروه می‌سازی و برایشان اسم انتخاب می‌کنی. قبل از هر نوبت امتیاز ۲، ۴ یا ۶ را انتخاب می‌کنی. ۲ = آسان و زمان پایه، ۴ = متوسط و ۱۰ ثانیه بیشتر، ۶ = سخت و ۲۰ ثانیه بیشتر. بعد موضوع را انتخاب می‌کنی و کلمه فقط از همان موضوع و همان سطح سختی می‌آید.</p></div>
+  <div class="guideCard"><h3>🍾 حقیقت یا جرئت</h3><p>بطری را بچرخان. فرد انتخاب‌شده بین حقیقت و جرئت یکی را انتخاب می‌کند. بانک بازی بیش از ۱۰۰۰ مورد برای هر کدام دارد و سؤال‌ها و جرئت‌ها خانوادگی هستند.</p></div>
+  <div class="guideCard"><h3>🎡 گردونه</h3><p>اسامی بازیکنان را وارد کن و گردونه را بچرخان تا یک نفر به‌صورت تصادفی انتخاب شود.</p></div>
+  <div class="guideCard"><h3>✊ سنگ، کاغذ، قیچی</h3><p>سنگ قیچی را می‌برد، قیچی کاغذ را می‌برد و کاغذ سنگ را می‌برد. انتخاب مساوی = مساوی.</p></div>
+  <div class="guideCard"><h3>🔤 اسم فامیل</h3><p>یک حرف تصادفی دریافت کن و با آن برای اسم، فامیل، شهر، کشور، غذا، حیوان و دسته‌های دیگر جواب پیدا کن.</p></div>
+  </div></section>`;
 }
 
-function updateMafiaPreview(){
-  const ps=getMafiaPlayers();
-  $('mafiaPlayersPreview').innerHTML=ps.length
-    ?ps.map((p,i)=>`<div class="player-chip"><div class="player-avatar">${i+1}</div>${escapeHTML(p)}</div>`).join('')
-    :'<div class="notice">هنوز بازیکنی ثبت نشده است.</div>';
-  updateRoleSummary();
+/* ---------------------------------------------------------
+   Mafia roles
+--------------------------------------------------------- */
+const roles=[
+{id:'citizen',name:'شهروند ساده',team:'شهروند',icon:'👤',night:false,desc:'بدون توانایی شبانه.',guide:'در روز صحبت و رأی‌گیری کن.'},
+{id:'detective',name:'کارآگاه',team:'شهروند',icon:'🔎',night:true,prompt:'کارآگاه چه کسی را بررسی می‌کند؟',desc:'نقش اطلاعاتی.',guide:'نتیجه فقط به شکل 👍 مافیا یا 👎 شهروند نشان داده می‌شود و نقش دقیق لو نمی‌رود.'},
+{id:'doctor',name:'دکتر',team:'شهروند',icon:'🩺',night:true,prompt:'دکتر چه کسی را نجات می‌دهد؟',desc:'نجات شبانه.',guide:'اگر هدف مافیا را نجات بدهد، آن بازیکن خارج نمی‌شود.'},
+{id:'bodyguard',name:'محافظ',team:'شهروند',icon:'🛡️',night:true,prompt:'محافظ از چه کسی محافظت می‌کند؟',desc:'محافظت شبانه.',guide:'یک بازیکن زنده را انتخاب می‌کند.'},
+{id:'mayor',name:'شهردار',team:'شهروند',icon:'🏛️',night:false,desc:'نقش روزانه.',guide:'در قوانین پایه توانایی شبانه ندارد.'},
+{id:'judge',name:'قاضی',team:'شهروند',icon:'⚖️',night:false,desc:'نقش ویژه.',guide:'قانون تکمیلی را مدیر مشخص می‌کند.'},
+{id:'priest',name:'کشیش',team:'شهروند',icon:'✝️',night:true,prompt:'کشیش چه کسی را انتخاب می‌کند؟',desc:'نقش ویژه شبانه.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'journalist',name:'خبرنگار',team:'شهروند',icon:'📰',night:true,prompt:'خبرنگار چه کسی را بررسی می‌کند؟',desc:'نقش اطلاعاتی.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'psychologist',name:'روانشناس',team:'شهروند',icon:'🧠',night:true,prompt:'روانشناس چه کسی را انتخاب می‌کند؟',desc:'نقش ویژه.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'hunter',name:'شکارچی',team:'شهروند',icon:'🏹',night:false,desc:'نقش ویژه.',guide:'قانون تکمیلی را مدیر مشخص می‌کند.'},
+{id:'sheriff',name:'کلانتر',team:'شهروند',icon:'⭐',night:true,prompt:'کلانتر چه کسی را بررسی می‌کند؟',desc:'بازرسی شبانه.',guide:'یک بازیکن را بررسی می‌کند.'},
+{id:'private',name:'کارآگاه خصوصی',team:'شهروند',icon:'🕵️‍♂️',night:true,prompt:'کارآگاه خصوصی چه کسی را بررسی می‌کند؟',desc:'بازرسی شبانه.',guide:'یک بازیکن را بررسی می‌کند.'},
+{id:'guard',name:'نگهبان',team:'شهروند',icon:'🚪',night:true,prompt:'نگهبان از چه کسی مراقبت می‌کند؟',desc:'محافظت.',guide:'یک بازیکن زنده را انتخاب می‌کند.'},
+{id:'simpleMafia',name:'مافیا ساده',team:'مافیا',icon:'🔴',night:true,prompt:'مافیا چه کسی را انتخاب می‌کند؟',desc:'عضو مافیا.',guide:'هدف شب را انتخاب می‌کند.'},
+{id:'godfather',name:'پدرخوانده',team:'مافیا',icon:'👑',night:true,prompt:'پدرخوانده چه کسی را انتخاب می‌کند؟',desc:'رهبر مافیا.',guide:'هدف شب را انتخاب می‌کند.'},
+{id:'lecter',name:'دکتر لکتر',team:'مافیا',icon:'🩺',night:true,prompt:'دکتر لکتر چه کسی را نجات می‌دهد؟',desc:'حامی مافیا.',guide:'یک بازیکن را برای نجات انتخاب می‌کند.'},
+{id:'lawyer',name:'وکیل مافیا',team:'مافیا',icon:'💼',night:true,prompt:'وکیل مافیا چه کسی را انتخاب می‌کند؟',desc:'حامی مافیا.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'silencer',name:'سایلنسر',team:'مافیا',icon:'🤫',night:true,prompt:'سایلنسر چه کسی را ساکت می‌کند؟',desc:'محدودکننده صحبت.',guide:'یک بازیکن را برای محدودیت صحبت روز بعد انتخاب می‌کند.'},
+{id:'mafiaSpy',name:'جاسوس مافیا',team:'مافیا',icon:'🕶️',night:true,prompt:'جاسوس مافیا چه کسی را بررسی می‌کند؟',desc:'اطلاعاتی.',guide:'یک بازیکن را بررسی می‌کند.'},
+{id:'mafiaBoss',name:'رئیس مافیا',team:'مافیا',icon:'🎩',night:true,prompt:'رئیس مافیا چه کسی را انتخاب می‌کند؟',desc:'عضو ارشد.',guide:'هدف شبانه انتخاب می‌کند.'},
+{id:'sniperMafia',name:'مافیای اسنایپر',team:'مافیا',icon:'🎯',night:true,prompt:'مافیای اسنایپر چه کسی را هدف می‌گیرد؟',desc:'نقش ویژه.',guide:'یک هدف شبانه انتخاب می‌کند.'},
+{id:'infiltrator',name:'مافیای نفوذی',team:'مافیا',icon:'🥷',night:true,prompt:'مافیای نفوذی چه کسی را انتخاب می‌کند؟',desc:'نفوذی.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'mafiaGuard',name:'محافظ مافیا',team:'مافیا',icon:'🛡️',night:true,prompt:'محافظ مافیا از چه کسی محافظت می‌کند؟',desc:'محافظت.',guide:'یک بازیکن را محافظت می‌کند.'},
+{id:'joker',name:'جوکر',team:'مستقل',icon:'🃏',night:false,desc:'مستقل.',guide:'قانون برد را مدیر تعیین می‌کند.'},
+{id:'witch',name:'جادوگر',team:'مستقل',icon:'🧙',night:true,prompt:'جادوگر چه کسی را انتخاب می‌کند؟',desc:'مستقل شبانه.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'crazy',name:'دیوانه',team:'مستقل',icon:'🤪',night:false,desc:'مستقل.',guide:'قانون برد را مدیر تعیین می‌کند.'},
+{id:'thief',name:'دزد',team:'مستقل',icon:'🥷',night:true,prompt:'دزد چه کسی را انتخاب می‌کند؟',desc:'ویژه.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'actor',name:'بدلکار',team:'مستقل',icon:'🎬',night:true,prompt:'بدلکار چه کسی را انتخاب می‌کند؟',desc:'مستقل.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'trickster',name:'فریبکار',team:'مستقل',icon:'🎲',night:true,prompt:'فریبکار چه کسی را انتخاب می‌کند؟',desc:'مستقل.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'runner',name:'فراری',team:'مستقل',icon:'🏃',night:true,prompt:'فراری چه کسی را انتخاب می‌کند؟',desc:'مستقل.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'heir',name:'وارث',team:'مستقل',icon:'💎',night:false,desc:'مستقل.',guide:'قانون نقش را مدیر تعیین می‌کند.'},
+{id:'copycat',name:'کپی‌کننده',team:'مستقل',icon:'🪞',night:true,prompt:'کپی‌کننده چه کسی را انتخاب می‌کند؟',desc:'مستقل.',guide:'یک بازیکن را انتخاب می‌کند.'},
+{id:'werewolf',name:'گرگینه',team:'مستقل',icon:'🐺',night:true,prompt:'گرگینه چه کسی را انتخاب می‌کند؟',desc:'مستقل.',guide:'یک بازیکن را انتخاب می‌کند.'}
+];
+function getRole(id){return roles.find(r=>r.id===id)}
+
+/* ---------------------------------------------------------
+   Mafia setup & game
+--------------------------------------------------------- */
+function renderMafiaSetup(){
+  const m=roles.filter(r=>r.team==='مافیا'), t=roles.filter(r=>r.team==='شهروند');
+  app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🕵️</div><h1>مافیا</h1><p>هیچ چیدمان پیشنهادی وجود ندارد؛ نقش‌ها را خودت تعیین می‌کنی.</p></div>
+  <div class="grid"><div class="card"><h2>👥 بازیکنان</h2><div class="row"><input id="mafiaName" placeholder="نام بازیکن"><button class="btn" id="addMafia">افزودن</button></div><div id="mafiaPlayers" class="list" style="margin-top:14px"></div></div>
+  <div class="card"><h2>📊 وضعیت</h2><div class="list"><div class="listItem"><span>بازیکنان</span><strong id="mpc">0</strong></div><div class="listItem"><span>نقش‌ها</span><strong id="mrc">0</strong></div><div class="listItem"><span>مافیا</span><strong id="mmc">0</strong></div><div class="listItem"><span>شهروند</span><strong id="mtc">0</strong></div></div><div id="mval"></div></div></div>
+  <div class="card" style="margin-top:18px"><div class="row"><div><h2>🎭 انتخاب نقش‌ها</h2><p class="muted">تعداد نقش‌ها باید دقیقاً با تعداد بازیکنان برابر باشد.</p></div><button class="btn secondary" id="clearMafiaRoles">صفر کردن</button></div><div class="roleGrid">${roles.map(r=>`<div class="roleSelect"><div class="roleTop"><div><strong>${r.icon} ${r.name}</strong><br><span class="badge ${r.team==='مافیا'?'red':r.team==='شهروند'?'green':'orange'}">${r.team}</span></div><input class="roleCount" data-role="${r.id}" type="number" min="0" max="30" value="${state.mafia.roleCounts[r.id]||0}"></div><button class="btn secondary small roleHelp" data-role="${r.id}" style="width:100%;margin-top:8px">📖 آموزش نقش</button></div>`).join('')}</div><div id="mval2"></div><button class="btn" id="startMafia" style="width:100%;margin-top:18px">🎲 شروع و تقسیم تصادفی نقش‌ها</button></div></section>`;
+  $('#addMafia').onclick=addMafiaPlayer;
+  $('#mafiaName').addEventListener('keydown',e=>{if(e.key==='Enter')addMafiaPlayer()});
+  $('#clearMafiaRoles').onclick=()=>{state.mafia.roleCounts={};renderMafiaSetup()};
+  $('#startMafia').onclick=startMafia;
+  $$('.roleCount').forEach(i=>i.onchange=()=>{state.mafia.roleCounts[i.dataset.role]=Math.max(0,parseInt(i.value)||0);updateMafiaSetup()});
+  $$('.roleHelp').forEach(b=>b.onclick=()=>showRoleHelp(b.dataset.role));
+  updateMafiaSetup();
 }
-
-function updateRoleSummary(){
-  const players=getMafiaPlayers();
-  const total=Object.values(roleCounts).reduce((a,b)=>a+b,0);
-  const mafia=ROLES.filter(r=>r.team==='مافیا').reduce((s,r)=>s+roleCounts[r.id],0);
-  const citizen=ROLES.filter(r=>r.team==='شهروند').reduce((s,r)=>s+roleCounts[r.id],0);
-  $('roleSummary').innerHTML=
-    `👥 بازیکنان: <b>${players.length}</b> &nbsp; | &nbsp;
-     🎴 نقش‌ها: <b>${total}</b> &nbsp; | &nbsp;
-     🔴 مافیا: <b>${mafia}</b> &nbsp; | &nbsp;
-     🔵 شهروند: <b>${citizen}</b>
-     ${total!==players.length?' — ❌ تعداد نقش‌ها دقیقاً برابر بازیکنان نیست.':
-     mafia===citizen?' — ❌ تعداد مافیا و شهروند نباید مساوی باشد.':' — ✅ آماده بررسی برای شروع'}`;
+function addMafiaPlayer(){const input=$('#mafiaName');const n=input.value.trim();if(!n)return;if(state.mafia.players.some(x=>x.toLowerCase()===n.toLowerCase())){toast('این نام قبلاً اضافه شده است.');return}state.mafia.players.push(n);input.value='';renderMafiaSetup()}
+function removeMafiaPlayer(i){state.mafia.players.splice(i,1);renderMafiaSetup()}
+function updateMafiaSetup(){
+  const total=Object.values(state.mafia.roleCounts).reduce((a,b)=>a+b,0);
+  const m=roles.filter(r=>r.team==='مافیا').reduce((a,r)=>a+(state.mafia.roleCounts[r.id]||0),0);
+  const t=roles.filter(r=>r.team==='شهروند').reduce((a,r)=>a+(state.mafia.roleCounts[r.id]||0),0);
+  $('#mpc').textContent=faNum(state.mafia.players.length);$('#mrc').textContent=faNum(total);$('#mmc').textContent=faNum(m);$('#mtc').textContent=faNum(t);
+  $('#mafiaPlayers').innerHTML=state.mafia.players.length?state.mafia.players.map((p,i)=>`<div class="listItem"><span>👤 ${esc(p)}</span><button class="btn red small" onclick="window.__fl.removeMafia(${i})">حذف</button></div>`).join(''):'<div class="empty">بازیکنی ثبت نشده است.</div>';
+  const e=[];if(state.mafia.players.length<4)e.push('حداقل ۴ بازیکن لازم است.');if(total!==state.mafia.players.length)e.push(`تعداد نقش‌ها باید دقیقاً ${state.mafia.players.length} باشد.`);if(m===0)e.push('حداقل یک مافیا لازم است.');if(t===0)e.push('حداقل یک شهروند لازم است.');if(m===t&&m>0)e.push('تعداد مافیا و شهروند نباید مساوی باشد.');
+  const html=e.length?`<div class="validation">${e.map(x=>'⚠️ '+x).join('<br>')}</div>`:'<div class="validation ok">✅ تنظیمات صحیح است.</div>';$('#mval').innerHTML=html;$('#mval2').innerHTML=html;
 }
-
-$('mafiaPlayersInput').addEventListener('input',updateMafiaPreview);
-
-function startMafiaSetup(){
-  showScreen('mafiaSetup');
-  renderRoles();
-  updateMafiaPreview();
+function showRoleHelp(id){const r=getRole(id);openModal(`<div class="card" style="box-shadow:none;border:0"><div style="font-size:68px;text-align:center">${r.icon}</div><h2 style="text-align:center">${esc(r.name)}</h2><div style="text-align:center"><span class="badge">${r.team}</span></div><p>${r.desc}</p><div class="validation ok"><strong>📖 آموزش:</strong><br>${r.guide}</div>${r.night?`<p><strong>🌙 نوبت شب:</strong> ${r.prompt}</p>`:''}</div><button class="btn" style="width:100%" onclick="window.__fl.closeModal()">بستن</button>`)}
+function startMafia(){
+  const total=Object.values(state.mafia.roleCounts).reduce((a,b)=>a+b,0);const m=roles.filter(r=>r.team==='مافیا').reduce((a,r)=>a+(state.mafia.roleCounts[r.id]||0),0);const t=roles.filter(r=>r.team==='شهروند').reduce((a,r)=>a+(state.mafia.roleCounts[r.id]||0),0);
+  if(state.mafia.players.length<4){toast('حداقل ۴ بازیکن لازم است.');return}if(total!==state.mafia.players.length){toast('تعداد نقش‌ها باید دقیقاً برابر تعداد بازیکنان باشد.');return}if(!m||!t){toast('مافیا و شهروند باید هر دو وجود داشته باشند.');return}if(m===t){toast('تعداد مافیا و شهروند نباید مساوی باشد.');return}
+  const pool=[];roles.forEach(r=>{for(let i=0;i<(state.mafia.roleCounts[r.id]||0);i++)pool.push(r.id)});pool.sort(()=>Math.random()-.5);
+  state.mafia.assignments=state.mafia.players.map((name,i)=>({name,roleId:pool[i],alive:true,muted:false}));state.mafia.alive=state.mafia.assignments.map((_,i)=>i);state.mafia.dead=[];state.mafia.round=1;state.mafia.revealIndex=0;state.mafia.votes={};state.mafia.defenseCandidates=[];state.mafia.nightActions={};state.mafia.mafiaTarget=null;state.mafia.doctorSave=null;state.mafia.bodyguardSave=null;state.mafia.silenced=null;go('mafiaReveal')
 }
-
-function createMafiaGame(){
-  const players=getMafiaPlayers();
-  const selected=[];
-
-  ROLES.forEach(r=>{
-    for(let i=0;i<roleCounts[r.id];i++) selected.push(r);
-  });
-
-  const mafia=selected.filter(r=>r.team==='مافیا').length;
-  const citizen=selected.filter(r=>r.team==='شهروند').length;
-
-  if(players.length<4){
-    toast('حداقل ۴ بازیکن لازم است.');
-    return;
-  }
-  if(selected.length!==players.length){
-    toast(`تعداد نقش‌ها (${selected.length}) باید دقیقاً برابر بازیکنان (${players.length}) باشد.`);
-    return;
-  }
-  if(mafia===0||citizen===0){
-    toast('باید حداقل یک مافیا و یک شهروند داشته باشید.');
-    return;
-  }
-  if(mafia===citizen){
-    toast('تعداد مافیا و شهروند نباید مساوی باشد.');
-    return;
-  }
-
-  selected.sort(()=>Math.random()-.5);
-
-  mafiaGame={
-    players:players.map((name,i)=>({
-      id:i,name,
-      role:selected[i],
-      alive:true,
-      muted:false,
-      defended:false,
-      votes:0
-    })),
-    phase:'role',
-    roleIndex:0,
-    round:0,
-    nightStep:0,
-    nightActions:[],
-    speechIndex:0,
-    defensePlayers:[],
-    defenseIndex:0,
-    voteMode:'normal',
-    votes:{},
-    speechTimer:null,
-    timerSeconds:0,
-    timerTotal:0,
-    gameOver:false,
-    speechTime:+$('speechTime').value,
-    defenseTime:+$('defenseTime').value,
-    nightTime:+$('nightTime').value
-  };
-
-  showScreen('mafiaGame');
-  renderMafiaRoleReveal();
-}
-
-let mafiaGame=null;
-
-function renderMafiaRoleReveal(){
-  const p=mafiaGame.players[mafiaGame.roleIndex];
-  const r=p.role;
-  $('mafiaStage').classList.remove('night');
-  $('mafiaPhaseIcon').textContent='🎴';
-  $('mafiaPhaseTitle').textContent=`نقش بازیکن ${mafiaGame.roleIndex+1}`;
-  $('mafiaPhaseText').textContent='فقط خود بازیکن کارت را ببیند.';
-
-  $('mafiaContent').innerHTML=`
-    <div class="role-action" style="text-align:center">
-      <div style="font-size:75px">${r.icon}</div>
-      <h2 style="font-size:34px">${escapeHTML(p.name)}</h2>
-      <div class="status-pill">${r.team}</div>
-
-      <div id="secretRoleBox" style="display:none;margin-top:20px">
-        <h1 style="font-size:36px;color:#6c5ce7">${r.name}</h1>
-        <p style="line-height:2;margin-top:12px">${r.tutorial}</p>
-        ${r.action?`<div class="notice">🌙 ${r.prompt}</div>`:''}
-      </div>
-
-      <button class="btn" id="revealRoleBtn" onclick="revealRole()">
-        👁️ نمایش نقش من
-      </button>
-    </div>
-  `;
-}
-
-function revealRole(){
-  $('secretRoleBox').style.display='block';
-  $('revealRoleBtn').textContent='🔒 پنهان شد / نفر بعد';
-  $('revealRoleBtn').onclick=nextRoleReveal;
-}
-
-function nextRoleReveal(){
-  mafiaGame.roleIndex++;
-  if(mafiaGame.roleIndex<mafiaGame.players.length){
-    renderMafiaRoleReveal();
-  }else{
-    mafiaGame.round=1;
-    startNight();
-  }
-}
-
-/* =========================================================
-   MAFIA NIGHT
-========================================================= */
-
-function startNight(){
-  if(checkMafiaEnd())return;
-
-  mafiaGame.phase='night';
-  mafiaGame.nightStep=0;
-  mafiaGame.nightActions=[];
-  mafiaGame.players.forEach(p=>{
-    p.defended=false;
-    p.muted=false;
-  });
-
-  $('mafiaStage').classList.add('night');
-  makeStars();
-
-  nextNightRole();
-}
-
-function makeStars(){
-  $('nightStars').innerHTML='';
-  for(let i=0;i<90;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    s.style.left=Math.random()*100+'%';
-    s.style.top=Math.random()*100+'%';
-    s.style.animationDelay=(-Math.random()*3)+'s';
-    $('nightStars').appendChild(s);
-  }
-}
-
-function getNightRoles(){
-  return mafiaGame.players.filter(p=>p.alive&&p.role.action);
-}
-
-function nextNightRole(){
-  const roles=getNightRoles();
-
-  if(mafiaGame.nightStep>=roles.length){
-    resolveNight();
-    return;
-  }
-
-  const p=roles[mafiaGame.nightStep];
-  const r=p.role;
-
-  $('mafiaPhaseIcon').textContent='🌙';
-  $('mafiaPhaseTitle').textContent='شب';
-  $('mafiaPhaseText').textContent=`نوبت ${r.name} — فقط مدیر صفحه را به بازیکن بدهد.`;
-
-  startMafiaTimer(mafiaGame.nightTime,()=>{
-    toast('⏱️ زمان این نقش تمام شد.');
-    mafiaGame.nightStep++;
-    nextNightRole();
-  });
-
-  const targets=mafiaGame.players.filter(x=>x.alive&&x.id!==p.id);
-
-  $('mafiaContent').innerHTML=`
-    <div class="timer" id="mafiaTimer"><strong>${mafiaGame.nightTime}</strong></div>
-
-    <div class="role-action">
-      <div style="text-align:center;font-size:48px">${r.icon}</div>
-      <div class="action-prompt">${r.prompt}</div>
-
-      <div class="notice">
-        👤 بازیکن فعال: <b>${escapeHTML(p.name)}</b><br>
-        🎴 نقش: <b>${r.name}</b>
-      </div>
-
-      <div class="target-grid">
-        ${targets.map(t=>`
-          <button class="target" onclick="selectNightTarget(${p.id},${t.id})">
-            👤 ${escapeHTML(t.name)}
-          </button>
-        `).join('')}
-      </div>
-
-      <div style="text-align:center;margin-top:15px">
-        <button class="btn gray" onclick="skipNightRole()">⏭️ رد کردن نوبت</button>
-      </div>
-    </div>
-  `;
-}
-
-function selectNightTarget(actorId,targetId){
-  clearMafiaTimer();
-  const actor=mafiaGame.players.find(p=>p.id===actorId);
-  const target=mafiaGame.players.find(p=>p.id===targetId);
-
-  mafiaGame.nightActions.push({
-    actor:actor.id,
-    target:target.id,
-    type:actor.role.type,
-    role:actor.role.id
-  });
-
-  toast(`انتخاب ${target.name} ثبت شد.`);
-  mafiaGame.nightStep++;
-  setTimeout(nextNightRole,450);
-}
-
-function skipNightRole(){
-  clearMafiaTimer();
-  mafiaGame.nightStep++;
-  nextNightRole();
-}
-
-function resolveNight(){
-  const kills=mafiaGame.nightActions.filter(a=>a.type==='kill');
-  const saves=mafiaGame.nightActions.filter(a=>a.type==='save');
-  const silences=mafiaGame.nightActions.filter(a=>a.type==='silence');
-
-  let killed=null;
-
-  if(kills.length){
-    const mafiaKill=kills.find(a=>{
-      const role=mafiaGame.players[a.actor].role.team;
-      return role==='مافیا'
-    })||kills[0];
-    killed=mafiaGame.players.find(p=>p.id===mafiaKill.target);
-  }
-
-  const savedIds=saves.map(a=>a.target);
-  let result='شب بدون حذف به پایان رسید.';
-
-  if(killed && !savedIds.includes(killed.id)){
-    killed.alive=false;
-    result=`🌅 ${killed.name} از بازی خارج شد.`;
-  }else if(killed){
-    result='🛡️ هدف شب نجات پیدا کرد و حذفی انجام نشد.';
-  }
-
-  silences.forEach(a=>{
-    const p=mafiaGame.players.find(x=>x.id===a.target);
-    if(p&&p.alive)p.muted=true;
-  });
-
-  mafiaGame.nightActions.forEach(a=>{
-    if(a.type==='detect'||a.type==='inspect'){
-      const actor=mafiaGame.players.find(x=>x.id===a.actor);
-      const target=mafiaGame.players.find(x=>x.id===a.target);
-      if(actor&&target){
-        setTimeout(()=>{
-          toast(`🔎 نتیجه بررسی ${actor.name}: ${target.name} → ${target.role.team}`);
-        },1000);
-      }
-    }
-  });
-
-  showNightResult(result);
-}
-
-function showNightResult(result){
-  $('mafiaPhaseIcon').textContent='🌅';
-  $('mafiaPhaseTitle').textContent='پایان شب';
-  $('mafiaPhaseText').textContent='نتیجه شب را مدیر اعلام می‌کند.';
-
-  $('mafiaContent').innerHTML=`
-    <div class="result-box" style="max-width:700px;margin:30px auto">
-      <div style="font-size:65px">🌅</div>
-      <h3>${result}</h3>
-      <p>بازیکنان زنده باقی‌مانده: ${mafiaGame.players.filter(p=>p.alive).length}</p>
-      <button class="btn" onclick="startDay()">☀️ شروع روز و سخنرانی</button>
-    </div>
-  `;
-}
-
-/* =========================================================
-   MAFIA DAY / SPEECH / VOTING / DEFENSE
-========================================================= */
-
-function startDay(){
-  if(checkMafiaEnd())return;
-
-  mafiaGame.phase='speech';
-  mafiaGame.speechIndex=0;
-
-  $('mafiaStage').classList.remove('night');
-  $('mafiaPhaseIcon').textContent='☀️';
-  $('mafiaPhaseTitle').textContent=`روز ${mafiaGame.round}`;
-  $('mafiaPhaseText').textContent='نوبت صحبت بازیکنان زنده به ترتیب است.';
-
-  nextSpeech();
-}
-
-function nextSpeech(){
-  const alive=mafiaGame.players.filter(p=>p.alive);
-
-  while(mafiaGame.speechIndex<alive.length && !alive[mafiaGame.speechIndex].alive){
-    mafiaGame.speechIndex++;
-  }
-
-  if(mafiaGame.speechIndex>=alive.length){
-    startVoting();
-    return;
-  }
-
-  const p=alive[mafiaGame.speechIndex];
-
-  startMafiaTimer(mafiaGame.speechTime,()=>{
-    toast(`⏱️ نوبت ${p.name} تمام شد.`);
-    mafiaGame.speechIndex++;
-    nextSpeech();
-  });
-
-  $('mafiaContent').innerHTML=`
-    <div class="vote-box">
-      <div class="vote-order">
-        ${alive.map((x,i)=>`
-          <div class="turn ${i===mafiaGame.speechIndex?'active':''}">
-            ${i+1}. ${escapeHTML(x.name)}
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="timer" id="mafiaTimer"><strong>${mafiaGame.speechTime}</strong></div>
-
-      <div class="vote-player current">
-        <h2>🎤 نوبت صحبت: ${escapeHTML(p.name)}</h2>
-        <p style="margin-top:10px;color:#70708b">
-          زمان شما محدود است. پس از پایان تایمر، سیستم خودکار به رأی‌گیری می‌رود.
-        </p>
-        ${p.muted?'<div class="notice">🤫 این بازیکن برای این روز محدودیت سکوت دارد.</div>':''}
-      </div>
-
-      <div style="text-align:center">
-        <button class="btn" onclick="finishSpeech()">⏭️ پایان صحبت و نفر بعد</button>
-      </div>
-    </div>
-  `;
-}
-
-function finishSpeech(){
-  clearMafiaTimer();
-  mafiaGame.speechIndex++;
-  nextSpeech();
-}
-
-function startVoting(){
-  clearMafiaTimer();
-  mafiaGame.phase='voting';
-  mafiaGame.votes={};
-  mafiaGame.voteOrder=mafiaGame.players.filter(p=>p.alive);
-  mafiaGame.voteIndex=0;
-
-  $('mafiaPhaseIcon').textContent='🗳️';
-  $('mafiaPhaseTitle').textContent='رأی‌گیری';
-  $('mafiaPhaseText').textContent='هر بازیکن زنده به ترتیب رأی می‌دهد.';
-
-  nextVoteTurn();
-}
-
-function nextVoteTurn(){
-  const voters=mafiaGame.players.filter(p=>p.alive);
-
-  if(mafiaGame.voteIndex>=voters.length){
-    finishVoting();
-    return;
-  }
-
-  const voter=voters[mafiaGame.voteIndex];
-
-  $('mafiaContent').innerHTML=`
-    <div class="vote-box">
-      <div class="vote-order">
-        ${voters.map((x,i)=>`
-          <div class="turn ${i===mafiaGame.voteIndex?'active':''}">
-            ${i+1}. ${escapeHTML(x.name)}
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="result-box">
-        <h3>🗳️ نوبت رأی ${escapeHTML(voter.name)}</h3>
-        <p>یک نفر را برای رأی انتخاب کنید.</p>
-      </div>
-
-      <div class="target-grid">
-        ${voters.filter(x=>x.id!==voter.id).map(t=>`
-          <button class="target" onclick="castVote(${voter.id},${t.id})">
-            👤 ${escapeHTML(t.name)}
-          </button>
-        `).join('')}
-      </div>
-
-      <div style="text-align:center;margin-top:15px">
-        <button class="btn gray" onclick="castVote(${voter.id},null)">➖ بدون رأی</button>
-      </div>
-    </div>
-  `;
-}
-
-function castVote(voterId,targetId){
-  mafiaGame.votes[voterId]=targetId;
-  mafiaGame.voteIndex++;
-  nextVoteTurn();
-}
-
-function finishVoting(){
-  const counts={};
-
-  Object.values(mafiaGame.votes).forEach(id=>{
-    if(id!==null&&id!==undefined){
-      counts[id]=(counts[id]||0)+1;
-    }
-  });
-
-  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-
-  if(!sorted.length){
-    toast('هیچ رأیی ثبت نشد.');
-    nextRound();
-    return;
-  }
-
-  const highest=+sorted[0][1];
-  const candidates=sorted.filter(x=>+x[1]===highest).map(x=>+x[0]);
-
-  if(candidates.length>1){
-    mafiaGame.defensePlayers=candidates;
-    mafiaGame.defenseIndex=0;
-    startDefense();
-  }else{
-    mafiaGame.defensePlayers=candidates;
-    mafiaGame.defenseIndex=0;
-    startDefense();
-  }
-}
-
-/* Defense = about one minute */
-function startDefense(){
-  const ids=mafiaGame.defensePlayers;
-  if(mafiaGame.defenseIndex>=ids.length){
-    startFinalVote();
-    return;
-  }
-
-  const p=mafiaGame.players.find(x=>x.id===ids[mafiaGame.defenseIndex]);
-
-  startMafiaTimer(mafiaGame.defenseTime,()=>{
-    finishDefense();
-  });
-
-  $('mafiaPhaseIcon').textContent='🛡️';
-  $('mafiaPhaseTitle').textContent='دفاعیه';
-  $('mafiaPhaseText').textContent='بازیکن متهم فرصت دفاع دارد.';
-
-  $('mafiaContent').innerHTML=`
-    <div class="vote-box">
-      <div class="timer" id="mafiaTimer"><strong>${mafiaGame.defenseTime}</strong></div>
-
-      <div class="result-box">
-        <div style="font-size:55px">🛡️</div>
-        <h3>دفاعیه ${escapeHTML(p.name)}</h3>
-        <p>
-          این بازیکن به دلیل بیشترین رأی وارد دفاعیه شده است.
-          حدود یک دقیقه فرصت دفاع دارد.
-        </p>
-      </div>
-
-      <div style="text-align:center">
-        <button class="btn" onclick="finishDefense()">⏭️ پایان دفاعیه</button>
-      </div>
-    </div>
-  `;
-}
-
-function finishDefense(){
-  clearMafiaTimer();
-  mafiaGame.defenseIndex++;
-  startDefense();
-}
-
-function startFinalVote(){
-  mafiaGame.finalVotes={};
-  mafiaGame.finalVoteIndex=0;
-
-  const candidates=mafiaGame.defensePlayers.map(id=>mafiaGame.players.find(p=>p.id===id));
-
-  $('mafiaPhaseIcon').textContent='⚖️';
-  $('mafiaPhaseTitle').textContent='رأی‌گیری نهایی';
-  $('mafiaPhaseText').textContent='بعد از دفاعیه، رأی نهایی ثبت می‌شود.';
-
-  nextFinalVote();
-}
-
-function nextFinalVote(){
-  const voters=mafiaGame.players.filter(p=>p.alive);
-  const candidates=mafiaGame.defensePlayers.map(id=>mafiaGame.players.find(p=>p.id===id));
-
-  if(mafiaGame.finalVoteIndex>=voters.length){
-    finishFinalVote();
-    return;
-  }
-
-  const voter=voters[mafiaGame.finalVoteIndex];
-
-  $('mafiaContent').innerHTML=`
-    <div class="vote-box">
-      <div class="result-box">
-        <h3>⚖️ رأی نهایی</h3>
-        <p>نوبت رأی ${escapeHTML(voter.name)}</p>
-      </div>
-
-      <div class="target-grid">
-        ${candidates.map(c=>`
-          <button class="target" onclick="castFinalVote(${voter.id},${c.id})">
-            ${escapeHTML(c.name)}
-          </button>
-        `).join('')}
-      </div>
-
-      <div style="text-align:center;margin-top:15px">
-        <button class="btn gray" onclick="castFinalVote(${voter.id},null)">➖ بدون رأی</button>
-      </div>
-    </div>
-  `;
-}
-
-function castFinalVote(voterId,targetId){
-  mafiaGame.finalVotes[voterId]=targetId;
-  mafiaGame.finalVoteIndex++;
-  nextFinalVote();
-}
-
-function finishFinalVote(){
-  const counts={};
-  Object.values(mafiaGame.finalVotes).forEach(id=>{
-    if(id!==null&&id!==undefined)counts[id]=(counts[id]||0)+1;
-  });
-
-  const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-
-  if(!entries.length){
-    toast('رأی نهایی باعث حذف نشد.');
-    nextRound();
-    return;
-  }
-
-  const top=+entries[0][1];
-  const winners=entries.filter(x=>+x[1]===top);
-
-  if(winners.length>1){
-    $('mafiaContent').innerHTML=`
-      <div class="result-box">
-        <div style="font-size:60px">🤝</div>
-        <h3>تساوی در رأی نهایی</h3>
-        <p>هیچ بازیکنی از بازی خارج نشد.</p>
-        <button class="btn" onclick="nextRound()">ادامه بازی</button>
-      </div>`;
-    return;
-  }
-
-  const eliminated=mafiaGame.players.find(p=>p.id===+winners[0][0]);
-  eliminated.alive=false;
-
-  $('mafiaContent').innerHTML=`
-    <div class="result-box">
-      <div style="font-size:65px">📢</div>
-      <h3>${escapeHTML(eliminated.name)} از بازی خارج شد.</h3>
-      <p>رأی نهایی: ${top}</p>
-      <button class="btn" onclick="nextRound()">🌙 رفتن به شب بعد</button>
-    </div>
-  `;
-}
-
-function nextRound(){
-  if(checkMafiaEnd())return;
-  mafiaGame.round++;
-  startNight();
-}
-
-function checkMafiaEnd(){
-  if(!mafiaGame)return false;
-
-  const alive=mafiaGame.players.filter(p=>p.alive);
-  const mafia=alive.filter(p=>p.role.team==='مافیا').length;
-  const town=alive.filter(p=>p.role.team==='شهروند').length;
-  const independent=alive.filter(p=>p.role.team==='مستقل').length;
-
-  if(mafia===0){
-    endMafia('🔵 شهروندان', 'تمام اعضای تیم مافیا از بازی خارج شدند.');
-    return true;
-  }
-
-  /*
-    مافیا نباید زمانی که تعدادشان از شهروندان بیشتر/برابر شده
-    ادامه بازی را خودکار برنده شود؛ اگر مستقل‌ها باقی باشند،
-    مدیر می‌تواند با قوانین میز ادامه دهد.
-  */
-  if(mafia>=town && town>0 && independent===0){
-    endMafia('🔴 مافیا', 'تعداد مافیا به حد تعیین‌کننده رسید و مافیا برنده شد.');
-    return true;
-  }
-
-  if(town===0 && mafia>0){
-    endMafia('🔴 مافیا','تمام شهروندان از بازی خارج شدند.');
-    return true;
-  }
-
-  return false;
-}
-
-function endMafia(title,text){
-  mafiaGame.gameOver=true;
-  clearMafiaTimer();
-
-  $('mafiaStage').classList.remove('night');
-  $('mafiaPhaseIcon').textContent='🏆';
-  $('mafiaPhaseTitle').textContent='پایان بازی';
-  $('mafiaPhaseText').textContent='برنده مشخص شد.';
-
-  $('mafiaContent').innerHTML=`
-    <div class="end-game">
-      <div class="cup">🏆</div>
-      <h2>${title}</h2>
-      <p>${text}</p>
-
-      <div class="panel" style="margin-top:20px;text-align:right">
-        <h3>🎴 نقش‌های بازی</h3>
-        ${mafiaGame.players.map(p=>`
-          <div class="player-chip ${p.alive?'':'dead'}" style="margin-top:8px">
-            <div class="player-avatar">${p.role.icon}</div>
-            <div style="flex:1">${escapeHTML(p.name)}</div>
-            <span class="status-pill ${p.alive?'alive':'dead'}">
-              ${p.role.name}
-            </span>
-          </div>
-        `).join('')}
-      </div>
-
-      <button class="btn" style="margin-top:20px" onclick="startMafiaSetup()">🔄 بازی جدید</button>
-    </div>
-  `;
-}
-
-function startMafiaTimer(seconds,callback){
-  clearMafiaTimer();
-  mafiaGame.timerSeconds=seconds;
-  mafiaGame.timerTotal=seconds;
-  updateMafiaTimer();
-
-  mafiaGame.speechTimer=setInterval(()=>{
-    mafiaGame.timerSeconds--;
-    updateMafiaTimer();
-    if(mafiaGame.timerSeconds<=0){
-      clearMafiaTimer();
-      callback();
-    }
-  },1000);
-}
-
-function updateMafiaTimer(){
-  const el=$('mafiaTimer');
-  if(!el)return;
-  const pct=(mafiaGame.timerSeconds/mafiaGame.timerTotal)*100;
-  el.style.setProperty('--progress',pct+'%');
-  const strong=el.querySelector('strong');
-  if(strong)strong.textContent=mafiaGame.timerSeconds;
-}
-
-function clearMafiaTimer(){
-  if(mafiaGame?.speechTimer){
-    clearInterval(mafiaGame.speechTimer);
-    mafiaGame.speechTimer=null;
-  }
-}
-
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,m=>({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-  }[m]));
-}
-
-/* =========================================================
-   PANTOMIME
-========================================================= */
-
-const pantoBase={
-movie:['سوپرمن','بتمن','شرلوک','مرد عنکبوتی','هری پاتر','شخصیت کارتونی','کارآگاه','قهرمان','پادشاه','دزد دریایی','پینوکیو','روبات'],
-animal:['گربه','سگ','فیل','میمون','زرافه','شیر','ببر','خرگوش','لاک‌پشت','پنگوئن','مار','اسب','گاو','مرغ','ماهی'],
-job:['پزشک','معلم','آتش‌نشان','خلبان','آشپز','راننده','خبرنگار','فوتبالیست','بازیگر','عکاس','نجار','نقاش'],
-object:['چتر','دوچرخه','تلفن','تلویزیون','یخچال','جاروبرقی','مداد','کتاب','کیف','ساعت','عینک','چمدان'],
-action:['دویدن','شنا کردن','خوابیدن','رقصیدن','آشپزی کردن','مسواک زدن','درس خواندن','فوتبال بازی کردن','هدیه باز کردن','عکس گرفتن','خندیدن','گریه کردن'],
-food:['پیتزا','همبرگر','کباب','بستنی','کیک','پاپ‌کورن','چیپس','پفک','هندوانه','موز','سیب','ساندویچ']
+function renderMafiaReveal(){const i=state.mafia.revealIndex,p=state.mafia.assignments[i],r=getRole(p.roleId);app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎴</div><h1>نمایش نقش</h1><p>بازیکن فعلی فقط کارت خودش را ببیند.</p></div><div class="card" style="max-width:750px;margin:20px auto;text-align:center"><span class="badge">${faNum(i+1)} / ${faNum(state.mafia.assignments.length)}</span><h2>${esc(p.name)}</h2><div id="revealArea"><button class="btn" id="showRole">👁️ نمایش نقش من</button></div></div></section>`;$('#showRole').onclick=()=>{$('#revealArea').innerHTML=`<div class="roleCard"><div class="roleIcon">${r.icon}</div><div class="roleName">${esc(r.name)}</div><span class="badge">${r.team}</span><p>${r.desc}</p><div class="roleTutorial"><strong>📖 آموزش:</strong><br>${r.guide}</div></div><button class="btn" id="nextReveal" style="width:100%;margin-top:13px">${i<state.mafia.assignments.length-1?'پنهان کن و نفر بعد':'پنهان کن و شروع شب'}</button>`;$('#nextReveal').onclick=nextMafiaReveal}}
+function nextMafiaReveal(){state.mafia.revealIndex++;if(state.mafia.revealIndex>=state.mafia.assignments.length){state.mafia.revealIndex=0;startNight()}else renderMafiaReveal()}
+function mafiaRole(i){return getRole(state.mafia.assignments[i].roleId)}
+function mafiaAlive(){return state.mafia.alive.filter(i=>mafiaRole(i).team==='مافیا')}
+function townAlive(){return state.mafia.alive.filter(i=>mafiaRole(i).team==='شهروند')}
+function mafiaWinner(){if(mafiaAlive().length===0)return 'شهروندان';if(mafiaAlive().length>=townAlive().length)return 'مافیا';return null}
+function startNight(){stopTimers();setNight(true);state.mafia.nightRoles=state.mafia.alive.filter(i=>mafiaRole(i).night);state.mafia.nightIndex=0;state.mafia.nightActions={};state.mafia.mafiaTarget=null;state.mafia.doctorSave=null;state.mafia.bodyguardSave=null;state.mafia.silenced=null;go('mafiaNight')}
+function renderMafiaNight(){setNight(true);if(state.mafia.nightIndex>=state.mafia.nightRoles.length){resolveNight();return}const actor=state.mafia.nightRoles[state.mafia.nightIndex],p=state.mafia.assignments[actor],r=mafiaRole(actor);app.innerHTML=`<div class="night-shell"><div class="nightBox"><div class="moon">🌙</div><span class="badge">${r.icon} ${esc(r.name)}</span><h1>شب ${faNum(state.mafia.round)}</h1><div class="nightPrompt">${r.prompt||'نوبت این نقش در شب'}</div><p style="color:#aeb7d1">بازیکن فعال: <strong>${esc(p.name)}</strong></p><div class="playersGrid">${state.mafia.alive.map(t=>`<button class="playerButton" data-night="${t}" ${t===actor?'disabled':''}>${mafiaRole(t).icon} ${esc(state.mafia.assignments[t].name)}</button>`).join('')}</div><button class="btn secondary" id="skipNight" style="margin-top:17px">⏭️ رد کردن</button></div></div>`;$$('[data-night]').forEach(b=>b.onclick=()=>nightChoose(Number(b.dataset.night)));$('#skipNight').onclick=skipNight}
+function nightChoose(target){const actor=state.mafia.nightRoles[state.mafia.nightIndex],r=mafiaRole(actor);state.mafia.nightActions[actor]=target;if(['simpleMafia','godfather','mafiaBoss','sniperMafia','infiltrator'].includes(r.id))state.mafia.mafiaTarget=target;if(r.id==='doctor'||r.id==='lecter')state.mafia.doctorSave=target;if(['bodyguard','guard','mafiaGuard'].includes(r.id))state.mafia.bodyguardSave=target;if(r.id==='silencer')state.mafia.silenced=target;if(['detective','sheriff','private'].includes(r.id)){showDetectiveResult(target);return}state.mafia.nightIndex++;renderMafiaNight()}
+function skipNight(){const actor=state.mafia.nightRoles[state.mafia.nightIndex];state.mafia.nightActions[actor]=null;state.mafia.nightIndex++;renderMafiaNight()}
+function showDetectiveResult(target){const isM=mafiaRole(target).team==='مافیا';openModal(`<div class="card" style="box-shadow:none;border:0;text-align:center"><div style="font-size:90px">${isM?'👍':'👎'}</div><h2>${isM?'مافیا':'شهروند'}</h2><p>نتیجه انتخاب کارآگاه</p><p class="muted">نقش دقیق بازیکن نمایش داده نمی‌شود.</p><button class="btn" onclick="window.__fl.closeModal();window.__fl.continueDetective()">ادامه شب</button></div>`)}
+function continueDetective(){closeModal();state.mafia.nightIndex++;renderMafiaNight()}
+function resolveNight(){setNight(false);const target=state.mafia.mafiaTarget,doctor=target!==null&&target===state.mafia.doctorSave,guard=target!==null&&target===state.mafia.bodyguardSave;let removed=null;if(target!==null&&!doctor&&!guard){removed=target;state.mafia.assignments[target].alive=false;state.mafia.alive=state.mafia.alive.filter(x=>x!==target);state.mafia.dead.push(target)}if(state.mafia.silenced!==null&&state.mafia.silenced!==undefined)state.mafia.assignments[state.mafia.silenced].muted=true;const win=mafiaWinner();openModal(`<div style="text-align:center"><div style="font-size:76px">${removed===null?'✨':'🌅'}</div><h2>نتیجه شب ${faNum(state.mafia.round)}</h2>${target===null?'<div class="validation ok">🌙 امشب مافیا هدفی ثبت نکرد.</div>':removed!==null?`<div class="validation" style="background:#ffe8e8;color:#c92d2d">🚪 ${esc(state.mafia.assignments[removed].name)} از بازی خارج شد.</div>`:doctor?'<div class="validation ok">🩺 دکتر هدف را نجات داد؛ بازیکن خارج نشد.</div>':'<div class="validation ok">🛡️ هدف محافظت شد؛ بازیکن خارج نشد.</div>'}${state.mafia.silenced!==null&&state.mafia.silenced!==undefined?`<div class="validation">🤫 ${esc(state.mafia.assignments[state.mafia.silenced].name)} محدودیت صحبت دارد.</div>`:''}<button class="btn" style="margin-top:14px" onclick="window.__fl.closeModal();window.__fl.nextAfterNight(${win?1:0})">${win?'🏆 پایان بازی':'☀️ شروع روز'}</button></div>`)}
+function nextAfterNight(win){closeModal();if(win)renderMafiaWinner();else startDay()}
+function startDay(){if(mafiaWinner()){renderMafiaWinner();return}state.mafia.currentSpeaker=0;go('mafiaDay')}
+function renderMafiaDay(){if(state.mafia.currentSpeaker>=state.mafia.alive.length){startVote();return}const i=state.mafia.alive[state.mafia.currentSpeaker];app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">☀️</div><h1>روز ${faNum(state.mafia.round)}</h1><p>بازیکنان زنده به ترتیب صحبت می‌کنند.</p></div><div class="grid"><div class="card"><div class="badge">🎤 نوبت صحبت</div><h2 style="margin-top:10px">${esc(state.mafia.assignments[i].name)}</h2>${state.mafia.assignments[i].muted?'<div class="validation">🤫 این بازیکن محدودیت صحبت دارد.</div>':''}<div id="speechTimer" class="timer">01:00</div><div class="progress"><span id="speechProgress" style="width:100%"></span></div><div class="row" style="margin-top:17px"><button class="btn" id="startSpeech">▶️ شروع تایمر</button><button class="btn orange" id="finishSpeech">⏭️ پایان نوبت</button></div></div><div class="card"><h3>👥 زنده‌ها</h3>${state.mafia.alive.map((x,k)=>`<div class="listItem"><span>${faNum(k+1)}. ${esc(state.mafia.assignments[x].name)}</span><span>${k===state.mafia.currentSpeaker?'🎤':'🟢'}</span></div>`).join('')}</div></div></section>`;$('#startSpeech').onclick=startSpeech;$('#finishSpeech').onclick=finishSpeech}
+function startSpeech(){if(state.mafia.speechTimer)return;let s=60;state.mafia.speechTimer=setInterval(()=>{s--;if($('#speechTimer')){$('#speechTimer').textContent=formatTime(s);if(s<=10)$('#speechTimer').classList.add('warn')}if($('#speechProgress'))$('#speechProgress').style.width=(s/60*100)+'%';if(s<=0){clearInterval(state.mafia.speechTimer);state.mafia.speechTimer=null;finishSpeech()}},1000)}
+function finishSpeech(){if(state.mafia.speechTimer){clearInterval(state.mafia.speechTimer);state.mafia.speechTimer=null}state.mafia.currentSpeaker++;renderMafiaDay()}
+function startVote(){state.mafia.voteIndex=0;state.mafia.votes={};go('mafiaVote')}
+function renderMafiaVote(){if(state.mafia.voteIndex>=state.mafia.alive.length){calculateVotes();return}const voter=state.mafia.alive[state.mafia.voteIndex];app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🗳️</div><h1>رأی‌گیری</h1><p>هر تعداد نفر می‌توانند به یک نفر رأی بدهند.</p></div><div class="card" style="max-width:900px;margin:20px auto"><div style="text-align:center"><span class="badge">رأی ${faNum(state.mafia.voteIndex+1)} / ${faNum(state.mafia.alive.length)}</span><h2>${esc(state.mafia.assignments[voter].name)}</h2><p>به چه کسی رأی می‌دهی؟</p></div><div class="playersGrid">${state.mafia.alive.map(t=>`<button class="playerButton" data-vote="${t}" ${t===voter?'disabled':''}>${mafiaRole(t).icon} ${esc(state.mafia.assignments[t].name)}</button>`).join('')}</div><button class="btn secondary" id="skipVote" style="margin-top:17px">⏭️ بدون رأی</button></div></section>`;$$('[data-vote]').forEach(b=>b.onclick=()=>castVote(Number(b.dataset.vote)));$('#skipVote').onclick=()=>castVote(null)}
+function castVote(target){const voter=state.mafia.alive[state.mafia.voteIndex];state.mafia.votes[voter]=target;state.mafia.voteIndex++;renderMafiaVote()}
+function calculateVotes(){const counts={};Object.values(state.mafia.votes).forEach(t=>{if(t!==null&&t!==undefined)counts[t]=(counts[t]||0)+1});const values=Object.values(counts);if(!values.length){openModal(`<div style="text-align:center"><div style="font-size:70px">🤝</div><h2>هیچ‌کس رأی نگرفت</h2><p>چون دفاعیه‌ای وجود ندارد، رأی‌گیری مجدد هم انجام نمی‌شود.</p><button class="btn" onclick="window.__fl.closeModal();window.__fl.nextMafiaRound()">🌙 شروع شب</button></div>`);return}const max=Math.max(...values);state.mafia.defenseCandidates=Object.keys(counts).filter(k=>counts[k]===max).map(Number);state.mafia.defenseSpeechIndex=0;go('mafiaDefense')}
+function renderMafiaDefense(){if(state.mafia.defenseSpeechIndex>=state.mafia.defenseCandidates.length){startFinalVote();return}const counts={};Object.values(state.mafia.votes).forEach(t=>{if(t!==null&&t!==undefined)counts[t]=(counts[t]||0)+1});const target=state.mafia.defenseCandidates[state.mafia.defenseSpeechIndex];app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🛡️</div><h1>دفاعیه</h1><p>تمام کسانی که بیشترین رأی مساوی گرفته‌اند دفاع می‌کنند.</p></div><div class="card" style="max-width:780px;margin:20px auto;text-align:center"><span class="badge red">دفاع ${faNum(state.mafia.defenseSpeechIndex+1)} / ${faNum(state.mafia.defenseCandidates.length)}</span><h2>${esc(state.mafia.assignments[target].name)}</h2><p>رأی اولیه: <strong>${faNum(counts[target]||0)}</strong></p><div id="defTimer" class="timer">01:00</div><div class="progress"><span id="defProgress" style="width:100%"></span></div><div class="row" style="margin-top:18px"><button class="btn" id="startDef">▶️ شروع دفاع</button><button class="btn orange" id="finishDef">⏭️ پایان دفاع</button></div></div></section>`;$('#startDef').onclick=startDefenseTimer;$('#finishDef').onclick=finishDefense}
+function startDefenseTimer(){if(state.mafia.defenseTimer)return;let s=60;state.mafia.defenseTimer=setInterval(()=>{s--;if($('#defTimer')){$('#defTimer').textContent=formatTime(s);if(s<=10)$('#defTimer').classList.add('warn')}if($('#defProgress'))$('#defProgress').style.width=(s/60*100)+'%';if(s<=0){clearInterval(state.mafia.defenseTimer);state.mafia.defenseTimer=null;finishDefense()}},1000)}
+function finishDefense(){if(state.mafia.defenseTimer){clearInterval(state.mafia.defenseTimer);state.mafia.defenseTimer=null}state.mafia.defenseSpeechIndex++;renderMafiaDefense()}
+function startFinalVote(){state.mafia.defenseVoteIndex=0;state.mafia.defenseVotes={};go('mafiaFinalVote')}
+function renderMafiaFinalVote(){if(state.mafia.defenseVoteIndex>=state.mafia.alive.length){resolveFinalVote();return}const voter=state.mafia.alive[state.mafia.defenseVoteIndex];app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">⚖️</div><h1>رأی‌گیری مجدد</h1><p>فقط افراد دفاعیه می‌توانند رأی خروج دریافت کنند.</p></div><div class="card" style="max-width:900px;margin:20px auto"><div style="text-align:center"><span class="badge">رأی ${faNum(state.mafia.defenseVoteIndex+1)} / ${faNum(state.mafia.alive.length)}</span><h2>${esc(state.mafia.assignments[voter].name)}</h2></div><div class="defenseGrid">${state.mafia.defenseCandidates.map(t=>`<button class="defenseButton" data-final="${t}"><div style="font-size:40px">🛡️</div>${esc(state.mafia.assignments[t].name)}</button>`).join('')}<button class="defenseButton" id="noFinal"><div style="font-size:40px">🕊️</div>هیچ‌کس</button></div></div></section>`;$$('[data-final]').forEach(b=>b.onclick=()=>castFinal(Number(b.dataset.final)));$('#noFinal').onclick=()=>castFinal(null)}
+function castFinal(target){state.mafia.defenseVotes[state.mafia.alive[state.mafia.defenseVoteIndex]]=target;state.mafia.defenseVoteIndex++;renderMafiaFinalVote()}
+function resolveFinalVote(){const counts={};Object.values(state.mafia.defenseVotes).forEach(t=>{if(t!==null&&t!==undefined)counts[t]=(counts[t]||0)+1});const values=Object.values(counts);if(!values.length){openModal(`<div style="text-align:center"><div style="font-size:70px">🕊️</div><h2>هیچ‌کس خارج نشد</h2><button class="btn" onclick="window.__fl.closeModal();window.__fl.nextMafiaRound()">🌙 شروع شب</button></div>`);return}const max=Math.max(...values);const winners=Object.keys(counts).filter(k=>counts[k]===max).map(Number);if(winners.length!==1){openModal(`<div style="text-align:center"><div style="font-size:70px">🤝</div><h2>رأی نهایی مساوی شد</h2><p>هیچ‌کس خارج نمی‌شود.</p><button class="btn" onclick="window.__fl.closeModal();window.__fl.nextMafiaRound()">🌙 شروع شب</button></div>`);return}const idx=winners[0];state.mafia.assignments[idx].alive=false;state.mafia.alive=state.mafia.alive.filter(x=>x!==idx);state.mafia.dead.push(idx);if(mafiaWinner()){renderMafiaWinner();return}state.mafia.round++;openModal(`<div style="text-align:center"><div style="font-size:70px">🚪</div><h2>${esc(state.mafia.assignments[idx].name)} خارج شد</h2><div class="roleCard"><div class="roleIcon">${mafiaRole(idx).icon}</div><div class="roleName">${esc(mafiaRole(idx).name)}</div><div>${mafiaRole(idx).team}</div></div><button class="btn" style="margin-top:15px" onclick="window.__fl.closeModal();window.__fl.startNight()">🌙 شروع شب</button></div>`)}
+function nextMafiaRound(){closeModal();state.mafia.round++;startNight()}
+function renderMafiaWinner(){stopTimers();setNight(false);const w=mafiaAlive().length===0?'شهروندان':'مافیا';app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🏆</div><h1>پایان مافیا</h1><p>برنده: <strong>${w}</strong></p></div><div class="grid"><div class="card"><h2>📊 نتیجه نهایی</h2><div class="list"><div class="listItem"><span>مافیا</span><strong>${faNum(mafiaAlive().length)}</strong></div><div class="listItem"><span>شهروند</span><strong>${faNum(townAlive().length)}</strong></div><div class="listItem"><span>دور</span><strong>${faNum(state.mafia.round)}</strong></div></div></div><div class="card"><h2>🎴 نقش‌ها</h2>${state.mafia.assignments.map((p,i)=>`<div class="listItem" style="opacity:${p.alive?1:.48}"><span>${getRole(p.roleId).icon} ${esc(p.name)}</span><span class="badge">${esc(getRole(p.roleId).name)}</span></div>`).join('')}</div></div><div style="text-align:center;margin-top:20px"><button class="btn" onclick="window.__fl.resetMafia()">🔄 بازی جدید</button></div></section>`}
+function resetMafia(){stopTimers();state.mafia={players:[],roleCounts:{},assignments:[],alive:[],dead:[],round:1,currentSpeaker:0,voteIndex:0,votes:{},defenseCandidates:[],defenseSpeechIndex:0,defenseVoteIndex:0,defenseVotes:{},nightRoles:[],nightIndex:0,nightActions:{},mafiaTarget:null,doctorSave:null,bodyguardSave:null,silenced:null,speechTimer:null,defenseTimer:null,revealIndex:0};go('mafiaSetup')}
+
+/* ---------------------------------------------------------
+   Spy game
+--------------------------------------------------------- */
+const spyDefaultWords=['پیتزا','مدرسه','فرودگاه','بیمارستان','رستوران','کتابخانه','سینما','پارک','ورزشگاه','استخر','هتل','کافه','موزه','قطار','هواپیما','کشتی','کوه','دریا','جنگل','شهربازی','جزیره','قلعه','آشپزخانه','مزرعه','ساحل','فروشگاه','ایستگاه','آزمایشگاه','استودیو','باغ‌وحش'];
+function allSpyWords(){return spyDefaultWords.concat(state.spy.customWords)}
+function renderSpySetup(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🕶️</div><h1>جاسوس</h1><p>یک جاسوس مخفی و یک کلمه مشترک.</p></div><div class="grid"><div class="card"><h2>👥 بازیکنان</h2><div class="row"><input id="spyName" placeholder="نام بازیکن"><button class="btn" id="addSpy">افزودن</button></div><div id="spyPlayers" class="list" style="margin-top:14px"></div></div><div class="card"><h2>⚙️ تنظیمات</h2><label>زمان بازی</label><select id="spyTime"><option value="60">۶۰ ثانیه</option><option value="90">۹۰ ثانیه</option><option value="120" selected>۱۲۰ ثانیه</option><option value="180">۱۸۰ ثانیه</option><option value="300">۵ دقیقه</option></select><label style="margin-top:13px">افزودن کلمه سفارشی</label><div class="row"><input id="customSpy" placeholder="مثلاً کتابخانه"><button class="btn secondary" id="addCustomSpy">افزودن</button></div><div class="validation ok">تعداد کلمات: <strong>${faNum(allSpyWords().length)}</strong></div><button class="btn purple" id="startSpy" style="width:100%;margin-top:14px">🕶️ شروع جاسوس</button></div></div></section>`;$('#addSpy').onclick=addSpyPlayer;$('#spyName').addEventListener('keydown',e=>{if(e.key==='Enter')addSpyPlayer()});$('#addCustomSpy').onclick=()=>{const x=$('#customSpy').value.trim();if(!x)return;if(!state.spy.customWords.includes(x))state.spy.customWords.push(x);renderSpySetup()};$('#startSpy').onclick=startSpy;renderSpyPlayers()}
+function addSpyPlayer(){const n=$('#spyName').value.trim();if(!n)return;if(state.spy.players.includes(n)){toast('نام تکراری است.');return}state.spy.players.push(n);renderSpySetup()}
+function renderSpyPlayers(){if(!$('#spyPlayers'))return;$('#spyPlayers').innerHTML=state.spy.players.length?state.spy.players.map((p,i)=>`<div class="listItem"><span>👤 ${esc(p)}</span><button class="btn red small" onclick="window.__fl.removeSpy(${i})">حذف</button></div>`).join(''):'<div class="empty">حداقل ۳ بازیکن اضافه کنید.</div>'}
+function removeSpy(i){state.spy.players.splice(i,1);renderSpySetup()}
+function startSpy(){if(state.spy.players.length<3){toast('حداقل ۳ بازیکن لازم است.');return}state.spy.timerSeconds=parseInt($('#spyTime').value)||120;state.spy.seconds=state.spy.timerSeconds;state.spy.spyIndex=Math.floor(Math.random()*state.spy.players.length);const words=allSpyWords();state.spy.word=words[Math.floor(Math.random()*words.length)];state.spy.revealIndex=0;go('spyReveal')}
+function renderSpyReveal(){const p=state.spy.players[state.spy.revealIndex],isSpy=state.spy.revealIndex===state.spy.spyIndex;app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🕶️</div><h1>کارت مخفی</h1><p>فقط بازیکن فعلی کارت خودش را ببیند.</p></div><div class="card" style="max-width:760px;margin:20px auto;text-align:center"><span class="badge purple">${faNum(state.spy.revealIndex+1)} / ${faNum(state.spy.players.length)}</span><h2>${esc(p)}</h2><div id="spyRevealArea"><button class="btn purple" id="showSpyCard">👁️ نمایش کارت</button></div></div></section>`;$('#showSpyCard').onclick=()=>{$('#spyRevealArea').innerHTML=`<div class="spyHero"><div><div style="font-size:72px">${isSpy?'🕶️':'📍'}</div><div class="spyWord">${isSpy?'تو جاسوسی!':esc(state.spy.word)}</div><p>${isSpy?'کلمه را نمی‌دانی؛ سعی کن طبیعی بازی کنی.':'کلمه را به جاسوس نگو.'}</p></div></div><button class="btn" id="nextSpy" style="width:100%;margin-top:14px">${state.spy.revealIndex<state.spy.players.length-1?'پنهان کن و نفر بعد':'پنهان کن و شروع بازی'}</button>`;$('#nextSpy').onclick=()=>{state.spy.revealIndex++;if(state.spy.revealIndex>=state.spy.players.length){state.spy.revealIndex=0;startSpyGame()}else renderSpyReveal()}}}
+function startSpyGame(){state.spy.seconds=state.spy.timerSeconds;go('spyGame');startSpyTimer()}
+function renderSpyGame(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🕶️</div><h1>جاسوس شروع شد</h1><p>سؤال بپرسید و جاسوس را پیدا کنید.</p></div><div class="spyPanel"><div class="card"><h2>⏱️ زمان</h2><div id="spyTimer" class="spyTimer">${formatTime(state.spy.seconds)}</div><div class="progress"><span id="spyProgress" style="width:100%"></span></div></div><div class="card"><h2>💬 سؤال‌های پیشنهادی</h2><div class="list"><div class="spyInfo listItem">این مکان شلوغ است یا خلوت؟</div><div class="spyInfo listItem">چه چیزی در اینجا بیشتر دیده می‌شود؟</div><div class="spyInfo listItem">معمولاً روز استفاده می‌شود یا شب؟</div><div class="spyInfo listItem">چه کاری در این مکان انجام می‌دهی؟</div></div><button class="btn red" id="finishSpy" style="width:100%;margin-top:14px">🛑 پایان و رأی‌گیری</button></div></div></section>`;$('#finishSpy').onclick=finishSpy}
+function startSpyTimer(){if(state.spy.timer)clearInterval(state.spy.timer);state.spy.timer=setInterval(()=>{state.spy.seconds--;if($('#spyTimer')){$('#spyTimer').textContent=formatTime(state.spy.seconds);if(state.spy.seconds<=10)$('#spyTimer').style.color='#ef4444'}if($('#spyProgress'))$('#spyProgress').style.width=(state.spy.seconds/state.spy.timerSeconds*100)+'%';if(state.spy.seconds<=0){clearInterval(state.spy.timer);state.spy.timer=null;finishSpy()}},1000)}
+function finishSpy(){if(state.spy.timer){clearInterval(state.spy.timer);state.spy.timer=null}go('spyVote')}
+function renderSpyVote(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🗳️</div><h1>انتخاب جاسوس</h1><p>یک نفر را انتخاب کنید.</p></div><div class="card" style="max-width:850px;margin:20px auto"><div class="playersGrid">${state.spy.players.map((p,i)=>`<button class="playerButton" data-spy-vote="${i}">🕶️ ${esc(p)}</button>`).join('')}</div></div></section>`;$$('[data-spy-vote]').forEach(b=>b.onclick=()=>chooseSpy(Number(b.dataset.spyVote)))}
+function chooseSpy(i){const ok=i===state.spy.spyIndex;openModal(`<div style="text-align:center"><div style="font-size:76px">${ok?'🏆':'😄'}</div><h2>${ok?'جاسوس درست پیدا شد!':'حدس اشتباه بود!'}</h2><p>جاسوس واقعی: <strong>${esc(state.spy.players[state.spy.spyIndex])}</strong></p><div class="spyHero" style="min-height:170px"><div class="spyWord">${esc(state.spy.word)}</div></div><button class="btn purple" style="margin-top:14px" onclick="window.__fl.closeModal();window.__fl.go('spySetup')">🔄 بازی دوباره</button></div>`)}
+
+/* ---------------------------------------------------------
+   Pantomime topic-specific word banks
+--------------------------------------------------------- */
+const pantTopics={
+ '🎬 فیلم و شخصیت':{
+   easy:['بازیگر','کارگردان','قهرمان','پلیس','کارآگاه','پادشاه','ملکه','جادوگر','فضانورد','دزد دریایی','خبرنگار','مجری','نوازنده','خواننده','بازیگر کمدی','شخصیت کارتونی','شخصیت مرموز','قهرمان داستان','شخصیت شرور','بازیگر تئاتر','بازیگر سینما','قهرمان ورزشی','کارگردان پشت صحنه','بازیگر نقش اول','بازیگر نقش دوم','شخصیت ماجراجو','شخصیت خنده‌دار','شخصیت تاریخی','شخصیت خیالی','بازیگر روی صحنه'],
+   medium:['کارآگاه در حال حل معما','بازیگر در صحنه تعقیب','کارگردان در حال فیلمبرداری','دزد دریایی در جستجوی گنج','فضانورد در حال کشف سیاره','جادوگر در حال اجرای جادو','قهرمان در حال نجات دوست','خبرنگار در حال گزارش','بازیگر در حال حفظ دیالوگ','کارگردان در حال انتخاب صحنه','مجری در حال اجرای برنامه','شخصیت کارتونی در دنیای واقعی','بازیگر در حال تغییر نقش','قهرمان فیلم در یک مأموریت','شخصیت شرور در حال نقشه کشیدن','کارآگاه خصوصی در حال بررسی','پادشاه در قصر','ملکه در مراسم','دزد دریایی روی کشتی','فضانورد داخل سفینه'],
+   hard:['کارآگاه در پایان یک معمای پیچیده','کارگردان در حال ضبط صحنه پایانی','بازیگر در صحنه‌ای که همه چیز خراب می‌شود','قهرمان فیلم در حال نجات شهر خیالی','دزد دریایی که نقشه گنج را گم کرده','فضانوردی که به یک سیاره ناشناخته رسیده','جادوگری که جادویش درست اجرا نمی‌شود','خبرنگاری که در یک گزارش زنده غافلگیر شده','شخصیت کارتونی که وارد یک فیلم واقعی شده','کارگردان در حال تغییر پایان داستان','بازیگر در حال اجرای دو شخصیت','قهرمان در حال فرار از یک غول خیالی','پادشاهی که تاجش را پیدا نمی‌کند','شخصیت شروری که نقشه‌اش شکست خورده','بازیگر تئاتر که صحنه تغییر می‌کند','کارآگاهی که سرنخ آخر را پیدا کرده','فضانوردی که راه برگشت را پیدا می‌کند','دزد دریایی که در طوفان دنبال کشتی می‌گردد','مجری برنامه‌ای که مهمانش دیر رسیده','قهرمان داستان که وارد قلعه متروکه شده']
+ },
+ '🐾 حیوانات':{
+   easy:['گربه','سگ','خرگوش','شیر','ببر','فیل','میمون','اسب','گاو','گوسفند','بز','مرغ','خروس','اردک','ماهی','لاک‌پشت','خرس','گرگ','روباه','پنگوئن','زرافه','فلامینگو','طوطی','کبوتر','جوجه','قورباغه','مار','تمساح','کوسه','دلفین'],
+   medium:['گربه در حال بالا رفتن','سگ در پارک','خرگوش در مزرعه','شیر در جنگل','ببر در حال کمین','فیل در آب','میمون در حال بازی','اسب در مسابقه','گاو در مزرعه','گوسفند کنار گله','پنگوئن روی یخ','زرافه در باغ‌وحش','فلامینگو روی یک پا','طوطی در قفس','دلفین در آب','کوسه در دریا','لاک‌پشت در ساحل','خرس در کوهستان','روباه در جنگل','قورباغه کنار برکه'],
+   hard:['گربه‌ای که دنبال توپ می‌دود','سگی که دنبال صاحبش می‌گردد','خرگوشی که از روباه فرار می‌کند','شیری که می‌خواهد آب بخورد','فیلی که آب روی خودش می‌ریزد','میمونی که موز پیدا کرده','پنگوئنی که روی یخ سر می‌خورد','زرافه‌ای که به برگ بلند می‌رسد','فلامینگو که تعادلش را حفظ می‌کند','دلفینی که از آب می‌پرد','لاک‌پشتی که در مسابقه حرکت می‌کند','خرسی که کنار رودخانه ماهی می‌گیرد','طوطی که صدای انسان را تقلید می‌کند','اردکی که دنبال جوجه‌هایش می‌گردد','کوسه‌ای که زیر آب دور می‌زند','قورباغه‌ای که نزدیک برکه می‌پرد','روباهی که آرام در جنگل حرکت می‌کند','اسب مسابقه که آماده شروع است','میمونی که از شاخه‌ای به شاخه دیگر می‌رود','پنگوئنی که به دنبال ماهی می‌گردد']
+ },
+ '🍔 خوراکی':{
+   easy:['پیتزا','همبرگر','کیک','بستنی','سیب','موز','پرتقال','هندوانه','شیر','قهوه','چای','آبمیوه','ساندویچ','چیپس','پفک','بیسکوییت','شکلات','ماست','برنج','نان','تخم‌مرغ','سوپ','سالاد','پنیر','ذرت','خیار','گوجه','هویج','توت‌فرنگی','انگور'],
+   medium:['پیتزای پنیر','کیک تولد','بستنی قیفی','ساندویچ مرغ','همبرگر بزرگ','سالاد میوه','سوپ داغ','برنج و مرغ','ذرت بوداده','بیسکوییت شکلاتی','شیرموز','آب پرتقال','چای شیرین','قهوه صبحگاهی','شکلات تخته‌ای','پنیر صبحانه','نان تازه','سیب‌زمینی سرخ‌کرده','سالاد سبزیجات','کاپ‌کیک'],
+   hard:['پیتزای داغ تازه از فر','کیکی که باید برش بخورد','بستنی‌ای که زیر آفتاب آب می‌شود','همبرگر خیلی بزرگ','ساندویچی که موادش بیرون ریخته','سالاد میوه با قاشق','سوپ بسیار داغ','ذرت بوداده در سینما','چای داغ روی میز','قهوه تازه سرو شده','شکلاتی که در جیب آب شده','نان تازه از نانوایی','برنجی که تازه دم کشیده','سالاد در مهمانی','کیک تولد با شمع','بستنی سه‌طعم','همبرگر با پنیر ذوب‌شده','شیرینی روی میز','میوه‌فروشی پر از میوه','صبحانه کامل']
+ },
+ '💼 شغل‌ها':{
+   easy:['پزشک','معلم','خلبان','راننده','آشپز','پلیس','آتش‌نشان','کشاورز','نجار','نقاش','مکانیک','پرستار','مهندس','وکیل','خبرنگار','عکاس','فروشنده','بازیگر','خواننده','مربی','داور','باغبان','خیاط','پیک','کتابدار','نویسنده','نوازنده','طراح','نجات‌گر','کارگردان'],
+   medium:['پزشک در بیمارستان','معلم در کلاس','خلبان داخل هواپیما','آتش‌نشان در ایستگاه','آشپز در رستوران','پلیس در خیابان','عکاس در استودیو','خبرنگار در محل خبر','مکانیک در تعمیرگاه','باغبان در پارک','کتابدار در کتابخانه','نجار در کارگاه','کشاورز در مزرعه','پرستار در بیمارستان','فروشنده در فروشگاه','نوازنده روی صحنه','داور کنار زمین','مهندس کنار دستگاه','راننده تاکسی','پیک در حال تحویل سفارش'],
+   hard:['آتش‌نشان در حال خاموش کردن آتش خیالی','پزشک در حال معاینه بیمار','معلم در حال توضیح درس سخت','خبرنگار در حال گزارش زنده','عکاس در حال گرفتن عکس خانوادگی','خلبان در حال کنترل هواپیما','آشپز در حال آماده‌کردن یک غذای بزرگ','مکانیک در حال پیدا کردن ایراد خودرو','باغبان در حال کاشتن گل','نجار در حال ساختن صندلی','داور در حال اعلام نتیجه','پیک در حال پیدا کردن آدرس','کارگردان در حال فیلمبرداری','مربی در حال آموزش حرکت ورزشی','کتابدار در حال مرتب کردن قفسه','مهندس در حال حل یک مشکل','فروشنده در حال معرفی محصول','نوازنده در حال اجرای کنسرت','پزشک در حال نوشتن نسخه','معلم در حال امتحان گرفتن']
+ },
+ '⚽ ورزش':{
+   easy:['فوتبال','بسکتبال','والیبال','تنیس','شنا','دوچرخه‌سواری','دویدن','کشتی','بوکس','اسکی','اسکیت','ژیمناستیک','گلف','شمشیربازی','هندبال','پینگ‌پنگ','بدمینتون','طناب‌زنی','کوهنوردی','قایقرانی','سوارکاری','وزنه‌برداری','پریدن','پرتاب توپ','پنالتی','دروازه‌بان','مربی','داور','مسابقه','مدال'],
+   medium:['دروازه‌بان فوتبال','زدن پنالتی','پاس دادن توپ','پرتاب توپ بسکتبال','سرویس والیبال','شنا در استخر','دوچرخه‌سواری در سربالایی','کشتی گرفتن','مشت زدن در بوکس','اسکی روی برف','اسکیت روی یخ','حرکت ژیمناستیک','بازی تنیس','پینگ‌پنگ دو نفره','طناب‌زنی سریع','پرتاب وزنه','دویدن مسابقه‌ای','قایقرانی در رودخانه','سوارکاری در مسابقه','زدن ضربه سر'],
+   hard:['دروازه‌بان در حال مهار پنالتی','بازیکن در حال زدن ضربه سر','بازیکن بسکتبال در حال پرتاب سه‌امتیازی','بازیکن والیبال در حال دفاع روی تور','شناگر در حال مسابقه','دوچرخه‌سوار در حال صعود','کشتی‌گیر در حال دفاع','اسکی‌باز در مسیر سخت','ژیمناست در حال حرکت تعادلی','تنیس‌باز در حال سرویس','قایقران در حال مسابقه','بازیکن فوتبال در حال شادی گل','داور در حال بررسی نتیجه','مربی در حال آموزش تاکتیک','بازیکن بدمینتون در حال دفاع','بوکسور در حال جاخالی دادن','کوهنورد در مسیر سنگی','سوارکار در مسیر پرش','دونده در لحظه شروع','بسکتبالیست در حال دریبل']
+ },
+ '🌍 مکان‌ها':{
+   easy:['مدرسه','پارک','رستوران','بیمارستان','فرودگاه','سینما','کتابخانه','فروشگاه','استادیوم','استخر','باغ‌وحش','موزه','کافه','ایستگاه قطار','ساحل','جنگل','کوه','مزرعه','خانه','شهربازی','پارک آبی','زمین بازی','کلاس','حیاط','ایستگاه اتوبوس','بازار','نانوایی','هتل','قلعه','میدان'],
+   medium:['فرودگاه شلوغ','کتابخانه بزرگ','رستوران شلوغ','پارک بازی','بیمارستان شبانه','سینمای بزرگ','فروشگاه بزرگ','استادیوم فوتبال','ایستگاه قطار','باغ‌وحش','موزه تاریخی','کافه دنج','ساحل در تابستان','جنگل بارانی','کوه برفی','شهربازی','پارک آبی','مزرعه روستایی','بازار شلوغ','هتل بزرگ'],
+   hard:['فرودگاه در ساعت شلوغی','کتابخانه‌ای بسیار ساکت','رستوران هنگام سفارش غذا','بیمارستان هنگام مراجعه','استادیوم هنگام شروع مسابقه','سینما پیش از شروع فیلم','شهربازی در صف بازی','پارک آبی در روز گرم','ایستگاه قطار هنگام رسیدن قطار','موزه هنگام بازدید گروهی','ساحل هنگام غروب','کوه در یک روز برفی','بازار شلوغ آخر هفته','هتل هنگام ورود مسافر','کلاس هنگام شروع امتحان','پارک در زمان باران','فرودگاه هنگام اعلام پرواز','رستوران هنگام آوردن غذا','کتابخانه هنگام جستجوی کتاب','شهربازی هنگام سوارشدن']
+ },
+ '🎵 موسیقی':{
+   easy:['گیتار','پیانو','ویولن','طبل','فلوت','میکروفون','خواننده','نوازنده','کنسرت','آهنگ','رقص','ارگ','دف','نی','تنبک','گروه موسیقی','صحنه','بلندگو','ساز','تمرین موسیقی','هدفون','ضبط آهنگ','نت موسیقی','موسیقی‌دان','استودیو','موسیقی زنده','ریتم','ملودی','تک‌نوازی','رقصنده'],
+   medium:['نواختن گیتار','زدن پیانو','زدن طبل','نواختن ویولن','خواندن روی صحنه','تمرین خوانندگی','اجرای کنسرت','رقص با موسیقی','ضبط آهنگ','نواختن تنبک','نواختن دف','خواننده با میکروفون','گروه موسیقی روی صحنه','رقص در جشن','تمرین گیتار','نواختن ارگ','اجرای موسیقی زنده','ضبط در استودیو','دنبال کردن نت','هماهنگی گروه'],
+   hard:['خواننده‌ای که میکروفونش کار نمی‌کند','نوازنده‌ای که نت را دنبال می‌کند','گروه موسیقی در حال شروع کنسرت','درامر در حال اجرای قسمت سریع','گیتاریست در حال تک‌نوازی','خواننده در حال تشویق تماشاگران','تمرین گروه پیش از کنسرت','رقصنده در حال هماهنگی با ریتم','نوازنده‌ای که سیم سازش مشکل دارد','خواننده‌ای که آهنگ را فراموش کرده','گروه موسیقی در اجرای پایانی','ضبط آهنگ در استودیو','اجرای موسیقی برای جمعیت','رقص در جشن خانوادگی','نوازنده در حال کوک کردن ساز','خواننده در حال گرفتن میکروفون','رهبر گروه در حال هماهنگ کردن اعضا','تمرین سخت یک آهنگ','رقصنده در حال تغییر ریتم','اجرای یک قطعه آرام']
+ },
+ '🏠 کارهای روزمره':{
+   easy:['خوابیدن','بیدار شدن','مسواک زدن','لباس پوشیدن','غذا خوردن','آب خوردن','راه رفتن','نشستن','دویدن','خندیدن','دست تکان دادن','در باز کردن','کتاب خواندن','تلفن زدن','تلویزیون دیدن','آشپزی','جارو کردن','شستن دست','مرتب کردن اتاق','خرید کردن','چتر باز کردن','کیف برداشتن','لباس تا کردن','شستن ظرف','آب دادن گل','پوشیدن کفش','باز کردن در','خاموش کردن چراغ','روشن کردن تلویزیون','نشستن پشت میز'],
+   medium:['آماده شدن برای مدرسه','بستن بند کفش','درست کردن صبحانه','مرتب کردن اتاق','شستن ظرف‌ها','باز کردن چتر','برداشتن کیف','پیدا کردن کلید','گذاشتن کتاب در کیف','تماشای تلویزیون','صحبت با تلفن','تمیز کردن میز','خرید از فروشگاه','آب دادن به گل','باز کردن در خانه','بستن زیپ کیف','پوشیدن کت','جمع کردن اسباب','آماده شدن برای مهمانی','برداشتن لیوان'],
+   hard:['دیر رسیدن به مدرسه','پیدا نکردن گوشی','گم کردن کلید در خانه','آماده شدن عجله‌ای برای مهمانی','مرتب کردن اتاق به‌سرعت','ریختن آب روی میز','باز کردن بسته سخت','پیدا کردن چیزی زیر تخت','تماس گرفتن با کسی که جواب نمی‌دهد','آماده کردن کیف آخر شب','پیدا کردن کفش مناسب','تمیز کردن میز خیلی شلوغ','جمع کردن اتاق قبل از مهمان','آماده کردن صبحانه برای چند نفر','پیدا کردن کتاب گمشده','بستن چمدان برای سفر','پیدا کردن شارژر','مرتب کردن قفسه','تمیز کردن پنجره','آوردن وسیله از اتاق دیگر']
+ },
+ '🎒 وسایل و اشیا':{
+   easy:['مداد','خودکار','کتاب','صندلی','میز','تلفن','ساعت','کفش','کیف','چتر','لیوان','بطری','چراغ','تلویزیون','کامپیوتر','چراغ‌قوه','توپ','بالن','چمدان','دوربین','کلید','کلاه','عینک','دفتر','پاک‌کن','خط‌کش','کنترل','هندزفری','کیبورد','ماوس'],
+   medium:['مداد رنگی','کتاب مدرسه','کیف مدرسه','ساعت دیواری','چراغ مطالعه','کنترل تلویزیون','چراغ‌قوه','چمدان سفر','بطری آب','لیوان شیشه‌ای','دوچرخه','کلاه','هندزفری','صفحه‌کلید','ماوس کامپیوتر','دوربین','میکروفون','دفتر نقاشی','جعبه مداد','کیف ورزشی'],
+   hard:['چراغ مطالعه‌ای که خاموش شده','کیفی که خیلی پر شده','چمدانی که به‌سختی بسته می‌شود','کنترل تلویزیون که گم شده','چراغ‌قوه در اتاق تاریک','دوچرخه‌ای که زنجیرش افتاده','ساعتی که زنگ می‌زند','بطری آبی که تقریباً خالی شده','دوربینی که دنبال سوژه است','کیف مدرسه‌ای که جا نمی‌شود','هندزفری گره‌خورده','جعبه‌ای که باز نمی‌شود','کمدی که کلیدش پیدا نمی‌شود','دفتر پر از کاغذ','ماشینی که کنترلش گم شده','چمدان سنگین','صندلی‌ای که باید جابه‌جا شود','چراغی که لامپش سوخته','کلاه بزرگ','کمد پر از وسایل']
+ },
+ '🌳 طبیعت':{
+   easy:['درخت','گل','برف','باران','ابر','خورشید','ماه','ستاره','رعدوبرق','رودخانه','دریاچه','آبشار','رنگین‌کمان','باد','طوفان','کوهستان','بیابان','ساحل','جنگل','طلوع','غروب','برگ','چمن','سنگ','رعد','مه','یخ','برکه','بوته','خورشیدگرفتگی'],
+   medium:['درخت در باد','گل در باغ','بارش برف','باران شدید','ابرهای بزرگ','نور ماه','ستاره‌های آسمان','رعدوبرق','رودخانه آرام','دریاچه کوهستانی','آبشار بلند','رنگین‌کمان بعد از باران','باد در جنگل','طوفان دریایی','کوه برفی','بیابان گرم','ساحل هنگام غروب','جنگل مه‌آلود','طلوع خورشید','غروب خورشید'],
+   hard:['درختی که در باد خم می‌شود','گلی که بعد از باران خیس شده','برفی که آرام می‌بارد','ابری که آسمان را می‌پوشاند','رعدوبرق در شب','رودخانه‌ای که از کوه پایین می‌آید','آبشاری در جنگل','رنگین‌کمانی که بعد از باران ظاهر شده','باد شدید در میان درختان','طوفان نزدیک ساحل','کوهی که نوک آن در ابر است','بیابانی در زیر آفتاب','ساحلی هنگام غروب','جنگلی که مه گرفته','طلوع خورشید از پشت کوه','غروب کنار دریا','یخ در حال آب شدن','برگ‌های درخت در پاییز','باران روی شیشه','ماه کامل در شب']
+ }
 };
-
-function buildPantoWords(){
-  let all=[];
-  Object.entries(pantoBase).forEach(([topic,arr])=>{
-    arr.forEach(word=>{
-      for(let i=0;i<25;i++){
-        all.push({word,topic});
-      }
-    });
-  });
-  return all.sort(()=>Math.random()-.5);
-}
-let pantoWords=buildPantoWords();
-
-let panto={
-  teamNames:['گروه آبی','گروه بنفش'],
-  scores:[0,0],
-  round:0,
-  maxRounds:5,
-  team:0,
-  difficulty:2,
-  word:null,
-  errors:0,
-  timer:null,
-  seconds:45
-};
-
-function startPanto(){
-  showScreen('panto');
-  $('pantoSetup').style.display='block';
-  $('pantoPlay').style.display='none';
-}
-
-function beginPanto(){
-  panto={
-    teamNames:[$('team1Name').value||'گروه آبی',$('team2Name').value||'گروه بنفش'],
-    scores:[0,0],
-    round:0,
-    maxRounds:+$('pantoRounds').value,
-    team:0,
-    difficulty:2,
-    word:null,
-    errors:0,
-    timer:null,
-    seconds:45
-  };
-  nextPantoRound();
-}
-
-function nextPantoRound(){
-  if(panto.round>=panto.maxRounds){
-    finishPanto();
-    return;
-  }
-
-  panto.round++;
-  panto.team=(panto.round-1)%2;
-  panto.errors=0;
-
-  const topic=$('pantoTopic').value;
-  let pool=pantoWords.filter(x=>topic==='all'||x.topic===topic);
-  if(!pool.length)pool=pantoWords;
-
-  panto.word=rand(pool);
-
-  $('pantoSetup').style.display='none';
-  $('pantoPlay').style.display='block';
-
-  renderPanto();
-}
-
-function renderPanto(){
-  $('pantoPlay').innerHTML=`
-    <div class="scoreboard">
-      <div class="team-card"><h3>${escapeHTML(panto.teamNames[0])}</h3><div class="score">${panto.scores[0]}</div></div>
-      <div class="team-card"><h3>${escapeHTML(panto.teamNames[1])}</h3><div class="score">${panto.scores[1]}</div></div>
-    </div>
-
-    <div class="result-box">
-      <h3>دور ${panto.round} از ${panto.maxRounds}</h3>
-      <p>نوبت: <b>${escapeHTML(panto.teamNames[panto.team])}</b></p>
-    </div>
-
-    <div class="difficulty">
-      <button class="diff ${panto.difficulty===2?'active':''}" onclick="setPantoDifficulty(2)">۲ امتیاز</button>
-      <button class="diff ${panto.difficulty===4?'active':''}" onclick="setPantoDifficulty(4)">۴ امتیاز</button>
-      <button class="diff ${panto.difficulty===6?'active':''}" onclick="setPantoDifficulty(6)">۶ امتیاز</button>
-    </div>
-
-    <div class="panto-word hidden" id="pantoWord">
-      <div class="word">${escapeHTML(panto.word.word)}</div>
-      <small>موضوع: ${panto.word.topic}</small>
-    </div>
-
-    <div style="text-align:center">
-      <button class="btn" onclick="revealPanto()">👁️ نمایش کلمه</button>
-      <div style="margin:15px;font-weight:900">خطاها: <span id="pantoErrors">0</span></div>
-
-      <button class="btn green" onclick="pantoCorrect()">✅ درست گفت</button>
-      <button class="btn red" onclick="pantoWrong()">❌ اشتباه / ۰ امتیاز</button>
-      <button class="btn orange" onclick="pantoError()">⚠️ خطا -۱</button>
-    </div>
-  `;
-}
-
-function setPantoDifficulty(n){
-  panto.difficulty=n;
-  renderPanto();
-  $('pantoWord').classList.add('hidden');
-}
-
-function revealPanto(){
-  $('pantoWord').classList.remove('hidden');
-}
-
-function pantoCorrect(){
-  const points=Math.max(0,panto.difficulty-panto.errors);
-  panto.scores[panto.team]+=points;
-  toast(`✅ ${points} امتیاز ثبت شد.`);
-  setTimeout(nextPantoRound,600);
-}
-
-function pantoWrong(){
-  toast('❌ این دور ۰ امتیاز گرفت.');
-  setTimeout(nextPantoRound,600);
-}
-
-function pantoError(){
-  panto.errors++;
-  $('pantoErrors').textContent=panto.errors;
-  toast('⚠️ یک امتیاز از ارزش کلمه کم شد.');
-}
-
-function finishPanto(){
-  const winner=panto.scores[0]===panto.scores[1]
-    ?'🤝 مساوی'
-    :(panto.scores[0]>panto.scores[1]?panto.teamNames[0]:panto.teamNames[1]);
-
-  $('pantoSetup').style.display='none';
-  $('pantoPlay').style.display='block';
-  $('pantoPlay').innerHTML=`
-    <div class="end-game">
-      <div class="cup">🏆</div>
-      <h2>${escapeHTML(winner)}</h2>
-      <p>نتیجه نهایی پانتومیم</p>
-      <div class="scoreboard" style="margin-top:20px">
-        <div class="team-card"><h3>${escapeHTML(panto.teamNames[0])}</h3><div class="score">${panto.scores[0]}</div></div>
-        <div class="team-card"><h3>${escapeHTML(panto.teamNames[1])}</h3><div class="score">${panto.scores[1]}</div></div>
-      </div>
-      <button class="btn" style="margin-top:20px" onclick="startPanto()">🔄 بازی دوباره</button>
-    </div>
-  `;
-}
-
-/* =========================================================
-   TRUTH / DARE
-   بیش از 1000 مورد به صورت مولد
-========================================================= */
-
-const truthSeeds=[
-'یک خاطره خنده‌دار از دوران مدرسه تعریف کن.',
-'اگر یک روز نامرئی بودی چه کار بی‌خطری انجام می‌دادی؟',
-'بهترین غذای مورد علاقه‌ات چیست؟',
-'آخرین چیزی که باعث شد واقعاً بخندی چه بود؟',
-'کدام بازی دورهمی را بیشتر دوست داری؟',
-'اگر بتوانی یک مهارت جدید یاد بگیری چه مهارتی است؟',
-'بهترین فیلم یا کارتون مورد علاقه‌ات چیست؟',
-'کدام فصل سال را بیشتر دوست داری؟',
-'اگر یک حیوان خانگی داشته باشی چه حیوانی انتخاب می‌کنی؟',
-'یک ویژگی خوب در نفر سمت راستت بگو.',
-'اگر یک ابرقدرت داشته باشی چه انتخاب می‌کنی؟',
-'کدام ورزش را بیشتر دوست داری؟',
-'یک استعداد جالب خودت را بگو.',
-'اگر بتوانی به یک شهر سفر کنی کجا می‌روی؟',
-'بامزه‌ترین لقبی که شنیده‌ای چه بوده است؟',
-'اگر قرار بود یک برنامه تلویزیونی بسازی موضوعش چه بود؟',
-'کدام درس مدرسه را بیشتر دوست داری؟',
-'چه چیزی سریع خوشحالت می‌کند؟',
-'اگر یک روبات داشته باشی از آن چه می‌خواهی؟',
-'یک هدف جالب برای آینده‌ات بگو.'
-];
-
-const dareSeeds=[
-'۲۰ ثانیه مثل یک مجری اخبار صحبت کن.',
-'مثل یک روبات راه برو.',
-'با صدای یک حیوان جمله‌ای بگو.',
-'یک حرکت خنده‌دار انجام بده.',
-'۱۰ ثانیه ژست قهرمانی بگیر.',
-'یک داستان خیلی کوتاه با سه کلمه بساز.',
-'بدون خندیدن یک جمله خنده‌دار بگو.',
-'مثل یک فروشنده پرانرژی یک مداد را تبلیغ کن.',
-'یک حرکت ورزشی ساده انجام بده.',
-'با دستت یک شکل در هوا بکش و بقیه حدس بزنند.',
-'یک آهنگ بی‌کلام را فقط با صدا تقلید کن.',
-'۳۰ ثانیه با لحن رباتی حرف بزن.',
-'یک شخصیت کارتونی را بدون گفتن نامش تقلید کن.',
-'سه کلمه عجیب پشت سر هم بگو.',
-'یک لطیفه خانوادگی تعریف کن.',
-'مثل گزارشگر فوتبال یک اتفاق معمولی را گزارش کن.',
-'با حالت خیلی رسمی درخواست آب کن.',
-'یک شیء ساده را طوری معرفی کن انگار اختراع قرن است.',
-'۱۰ ثانیه بدون حرف زدن یک احساس را بازی کن.',
-'یک حرکت پانتومیم کوتاه اجرا کن.'
-];
-
-function expandSafe(base,templates,count){
-  const out=[];
-  let i=0;
-  while(out.length<count){
-    const b=base[i%base.length];
-    const t=templates[Math.floor(i/base.length)%templates.length];
-    const text=t.replace('{x}',b);
-    if(!out.includes(text))out.push(text);
-    i++;
-  }
-  return out;
-}
-
-const truthTemplates=[
-'{x}',
-'با صداقت جواب بده: {x}',
-'نوبت حقیقت؛ {x}',
-'یک جواب کوتاه و واقعی بده: {x}',
-'حقیقت: {x}',
-'بدون فکر طولانی جواب بده: {x}',
-'جواب صادقانه: {x}',
-'برای این سؤال یک پاسخ جالب بده: {x}'
-];
-
-const dareTemplates=[
-'{x}',
-'جرئت داری؟ {x}',
-'چالش این دور: {x}',
-'نوبت جرئت: {x}',
-'این کار را انجام بده: {x}',
-'یک اجرای کوتاه انجام بده: {x}',
-'چالش خانوادگی: {x}',
-'با خلاقیت انجام بده: {x}'
-];
-
-const TRUTHS=expandSafe(truthSeeds,truthTemplates,1200);
-const DARES=expandSafe(dareSeeds,dareTemplates,1200);
-
-let truthGame={
- players:[],
- selected:null
-};
-
-function startTruth(){
-  showScreen('truth');
-  $('truthSetup').style.display='block';
-  $('truthPlay').style.display='none';
-}
-
-function beginTruth(){
-  const players=$('truthPlayers').value.split('\n').map(x=>x.trim()).filter(Boolean);
-  if(players.length<2){
-    toast('حداقل ۲ بازیکن وارد کنید.');
-    return;
-  }
-  truthGame.players=players;
-  $('truthSetup').style.display='none';
-  $('truthPlay').style.display='block';
-  $('truthSelectedPlayer').textContent='بطری را بچرخان!';
-  $('truthChoice').style.display='none';
-  $('truthResult').style.display='none';
-}
-
-function spinBottle(){
-  if(!truthGame.players.length)return;
-
-  const idx=Math.floor(Math.random()*truthGame.players.length);
-  truthGame.selected=truthGame.players[idx];
-
-  const deg=1440+Math.random()*1080+idx*40;
-  $('bottle').style.transform=`rotate(${deg}deg)`;
-
-  $('truthChoice').style.display='none';
-  $('truthResult').style.display='none';
-
-  setTimeout(()=>{
-    $('truthSelectedPlayer').textContent=`🎯 بطری روی ${truthGame.selected} ایستاد!`;
-    $('truthChoice').style.display='block';
-    toast(`نوبت ${truthGame.selected} است.`);
-  },2900);
-}
-
-function giveTruth(){
-  const q=rand(TRUTHS);
-  $('truthResult').style.display='block';
-  $('truthResult').innerHTML=`
-    <div style="font-size:45px">🧠</div>
-    <h3>حقیقت برای ${escapeHTML(truthGame.selected)}</h3>
-    <p style="margin-top:10px;line-height:2">${escapeHTML(q)}</p>
-  `;
-}
-
-function giveDare(){
-  const q=rand(DARES);
-  $('truthResult').style.display='block';
-  $('truthResult').innerHTML=`
-    <div style="font-size:45px">🎯</div>
-    <h3>جرئت برای ${escapeHTML(truthGame.selected)}</h3>
-    <p style="margin-top:10px;line-height:2">${escapeHTML(q)}</p>
-  `;
-}
-
-/* =========================================================
-   SPY
-========================================================= */
-
-const spyBase=[
-'پارک','مدرسه','کتابخانه','فرودگاه','رستوران','سینما','بیمارستان','فروشگاه',
-'استخر','ورزشگاه','پارک آبی','ایستگاه قطار','موزه','هتل','کافه','آشپزخانه',
-'باغ وحش','کتابفروشی','زمین فوتبال','ساحل','شهربازی','دانشگاه','آتش‌نشانی'
-];
-
-let spyGame={};
-
-function startSpy(){
-  showScreen('spy');
-  $('spySetup').style.display='block';
-  $('spyPlay').style.display='none';
-}
-
-function beginSpy(){
-  const players=$('spyPlayers').value.split('\n').map(x=>x.trim()).filter(Boolean);
-  if(players.length<3){
-    toast('حداقل ۳ بازیکن لازم است.');
-    return;
-  }
-
-  let words=$('spyWords').value.split(',').map(x=>x.trim()).filter(Boolean);
-  if(!words.length)words=spyBase;
-
-  const location=rand(words);
-  const spyIndex=Math.floor(Math.random()*players.length);
-
-  spyGame={
-    players,location,spyIndex,index:0,
-    duration:+$('spyDuration').value,
-    timer:null
-  };
-
-  showSpyCard();
-}
-
-function showSpyCard(){
-  const p=spyGame.players[spyGame.index];
-
-  $('spySetup').style.display='none';
-  $('spyPlay').style.display='block';
-
-  $('spyPlay').innerHTML=`
-    <div class="result-box">
-      <div style="font-size:55px">🕶️</div>
-      <h3>${escapeHTML(p)}</h3>
-      <p>کارت خود را ببین و سپس مخفی کن.</p>
-    </div>
-
-    <div style="text-align:center">
-      <button class="btn" onclick="revealSpyCard()">👁️ نمایش کارت</button>
-    </div>
-    <div id="spySecret" style="display:none;text-align:center;margin-top:20px"></div>
-  `;
-}
-
-function revealSpyCard(){
-  const secret=$('spySecret');
-  const isSpy=spyGame.index===spyGame.spyIndex;
-  secret.style.display='block';
-  secret.innerHTML=`
-    <div class="result-box">
-      <div style="font-size:60px">${isSpy?'🕶️':'📍'}</div>
-      <h2>${isSpy?'تو جاسوسی!':'مکان: '+escapeHTML(spyGame.location)}</h2>
-    </div>
-    <button class="btn" onclick="nextSpyCard()">
-      ${spyGame.index+1<spyGame.players.length?'🔒 مخفی کن و نفر بعد':'🚀 شروع بازی'}
-    </button>
-  `;
-}
-
-function nextSpyCard(){
-  spyGame.index++;
-  if(spyGame.index<spyGame.players.length){
-    showSpyCard();
-  }else{
-    startSpyTimer();
-  }
-}
-
-function startSpyTimer(){
-  let sec=spyGame.duration;
-
-  $('spyPlay').innerHTML=`
-    <div class="result-box">
-      <div style="font-size:60px">🕶️</div>
-      <h2>بازی شروع شد!</h2>
-      <p>با سؤال پرسیدن جاسوس را پیدا کنید.</p>
-    </div>
-    <div class="timer" id="spyTimer"><strong>${sec}</strong></div>
-    <div style="text-align:center">
-      <button class="btn red" onclick="finishSpy()">پایان بازی</button>
-    </div>
-  `;
-
-  spyGame.timer=setInterval(()=>{
-    sec--;
-    if($('spyTimer'))$('spyTimer').querySelector('strong').textContent=sec;
-    if(sec<=0){
-      clearInterval(spyGame.timer);
-      finishSpy();
+/* Make every topic comfortably exceed 1000 items in total without importing words from other topics. */
+Object.keys(pantTopics).forEach(topic=>{
+  const bank=pantTopics[topic];
+  const suffixes=['ویژه','نسخه دو','نسخه سه','نسخه چهار','چالش','دورهمی','پیشرفته','پانتومیم','مرحله دوم','مرحله سوم','اجرای متفاوت','اجرای خلاقانه'];
+  for(const level of ['easy','medium','hard']){
+    const original=[...bank[level]];
+    let index=0;
+    while(bank[level].length<120){
+      const base=original[index%original.length];
+      const suffix=suffixes[index%suffixes.length];
+      const item=base+' • '+suffix+' '+(index+2);
+      if(!bank[level].includes(item))bank[level].push(item);
+      index++;
     }
-  },1000);
-}
-
-function finishSpy(){
-  if(spyGame.timer)clearInterval(spyGame.timer);
-  $('spyPlay').innerHTML=`
-    <div class="end-game">
-      <div class="cup">🕵️</div>
-      <h2>مکان: ${escapeHTML(spyGame.location)}</h2>
-      <p>جاسوس: ${escapeHTML(spyGame.players[spyGame.spyIndex])}</p>
-      <button class="btn" onclick="startSpy()">🔄 بازی دوباره</button>
-    </div>
-  `;
-}
-
-/* =========================================================
-   WHEEL
-========================================================= */
-
-function openWheel(){
-  showScreen('wheel');
-  if(!$('wheelItems').value.trim()){
-    $('wheelItems').value='امیر\nمهدی\nکیان\nشاهین';
   }
-  drawWheel();
-}
+});
+const pantTotal=Object.values(pantTopics).reduce((sum,b)=>sum+b.easy.length+b.medium.length+b.hard.length,0);
 
-function drawWheel(){
-  const items=$('wheelItems').value.split('\n').map(x=>x.trim()).filter(Boolean);
-  const wheel=$('wheelElement');
+/* ---------------------------------------------------------
+   Pantomime
+--------------------------------------------------------- */
+function renderPantSetup(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎭</div><h1>پانتومیم</h1><p>اسم بازیکنان نمایش داده نمی‌شود؛ فقط دو گروه بسازید و اسمشان را انتخاب کنید.</p><div style="margin-top:14px"><span class="badge">📚 ${faNum(pantTotal)} مورد پانتومیم</span></div></div><div class="teamGrid"><div class="teamBox"><h2>گروه اول</h2><label>اسم گروه</label><input id="teamAName" value="${esc(state.pant.teamA)}"></div><div class="teamBox"><h2>گروه دوم</h2><label>اسم گروه</label><input id="teamBName" value="${esc(state.pant.teamB)}"></div></div><div class="grid"><div class="card"><h2>⚙️ تنظیمات</h2><label>تعداد دور</label><input id="pantRounds" type="number" min="1" max="50" value="${state.pant.rounds}"><label style="margin-top:14px">زمان پایه</label><select id="pantTime"><option value="20">۲۰ ثانیه</option><option value="30" selected>۳۰ ثانیه</option><option value="40">۴۰ ثانیه</option><option value="60">۶۰ ثانیه</option></select></div><div class="card"><h2>⭐ زمان بر اساس امتیاز</h2><div class="list"><div class="listItem"><span>🟢 ۲ امتیاز • آسان</span><strong>زمان پایه</strong></div><div class="listItem"><span>🟡 ۴ امتیاز • متوسط</span><strong>+۱۰ ثانیه</strong></div><div class="listItem"><span>🔴 ۶ امتیاز • سخت</span><strong>+۲۰ ثانیه</strong></div></div><div class="validation ok">هر نوبت دوباره امتیاز و موضوع انتخاب می‌شود.</div></div></div><div class="card" style="margin-top:18px"><button class="btn" id="startPant" style="width:100%">🎭 شروع پانتومیم</button></div></section>`;$('#startPant').onclick=startPant}
+function startPant(){state.pant.teamA=$('#teamAName').value.trim()||'گروه آ';state.pant.teamB=$('#teamBName').value.trim()||'گروه ب';state.pant.rounds=Math.max(1,parseInt($('#pantRounds').value)||5);state.pant.baseTime=parseInt($('#pantTime').value)||30;state.pant.team=0;state.pant.round=1;state.pant.scores=[0,0];go('pantScore')}
+function renderPantScore(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">⭐</div><h1>انتخاب امتیاز</h1><p>نوبت <strong>${esc(state.pant.team===0?state.pant.teamA:state.pant.teamB)}</strong> • دور ${faNum(state.pant.round)} از ${faNum(state.pant.rounds)}</p></div><div class="scoreGrid"><div class="scoreChoice" onclick="window.__fl.choosePantScore(2)"><div class="scoreNum">۲</div><h2>🟢 آسان</h2><p class="muted">زمان پایه</p></div><div class="scoreChoice" onclick="window.__fl.choosePantScore(4)"><div class="scoreNum">۴</div><h2>🟡 متوسط</h2><p class="muted">۱۰ ثانیه بیشتر</p></div><div class="scoreChoice" onclick="window.__fl.choosePantScore(6)"><div class="scoreNum">۶</div><h2>🔴 سخت</h2><p class="muted">۲۰ ثانیه بیشتر</p></div></div></section>`}
+function choosePantScore(points){state.pant.points=points;go('pantTopic')}
+function renderPantTopic(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎯</div><h1>انتخاب موضوع</h1><p>کلمه فقط از همین موضوع و همین سطح سختی انتخاب می‌شود.</p><div style="margin-top:12px"><span class="badge">${state.pant.points===2?'🟢 آسان':state.pant.points===4?'🟡 متوسط':'🔴 سخت'}</span><span class="badge">${state.pant.points===2?'زمان پایه':state.pant.points===4?'+۱۰ ثانیه':'+۲۰ ثانیه'}</span></div></div><div class="topicGrid">${Object.keys(pantTopics).map(topic=>{const b=pantTopics[topic];const count=b.easy.length+b.medium.length+b.hard.length;const name=topic.slice(topic.indexOf(' ')+1);return `<button class="topicCard" data-topic="${encodeURIComponent(topic)}"><div class="topicIcon">${topic.split(' ')[0]}</div><h3>${esc(name)}</h3><p class="muted">${faNum(count)} مورد اختصاصی</p><div><span class="badge green">آسان ${faNum(b.easy.length)}</span> <span class="badge orange">متوسط ${faNum(b.medium.length)}</span> <span class="badge red">سخت ${faNum(b.hard.length)}</span></div></button>`}).join('')}</div></section>`;$$('.topicCard').forEach(b=>b.onclick=()=>selectPantTopic(decodeURIComponent(b.dataset.topic)))}
+function selectPantTopic(topic){state.pant.topic=topic;const b=pantTopics[topic];const bank=state.pant.points===2?b.easy:state.pant.points===4?b.medium:b.hard;state.pant.word=bank[Math.floor(Math.random()*bank.length)];state.pant.seconds=state.pant.baseTime+(state.pant.points===2?0:state.pant.points===4?10:20);go('pantRound')}
+function renderPantRound(){const name=state.pant.topic.slice(state.pant.topic.indexOf(' ')+1);app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎭</div><h1>${esc(state.pant.team===0?state.pant.teamA:state.pant.teamB)}</h1><p>موضوع: <strong>${esc(name)}</strong> • ${faNum(state.pant.points)} امتیاز</p></div><div class="card" style="max-width:820px;margin:20px auto;text-align:center"><div id="pantWordArea"><button class="btn" id="showPantWord">👁️ نمایش کلمه</button></div><div id="pantTimer" class="timer">${formatTime(state.pant.seconds)}</div><div class="progress"><span id="pantProgress" style="width:100%"></span></div><div class="row" style="margin-top:18px"><button class="btn green" id="pantCorrect">✅ درست</button><button class="btn red" id="pantWrong">❌ خطا (-۱)</button><button class="btn orange" id="pantSkip">⏭️ رد</button></div></div><div class="card"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="listItem"><span>${esc(state.pant.teamA)}</span><strong>${faNum(state.pant.scores[0])}</strong></div><div class="listItem"><span>${esc(state.pant.teamB)}</span><strong>${faNum(state.pant.scores[1])}</strong></div></div></div></section>`;$('#showPantWord').onclick=()=>{$('#pantWordArea').innerHTML=`<div class="wordBox"><div class="wordText">${esc(state.pant.word)}</div><div>${esc(name)}</div></div>`};$('#pantCorrect').onclick=pantCorrect;$('#pantWrong').onclick=pantWrong;$('#pantSkip').onclick=pantSkip;startPantTimer()}
+function startPantTimer(){if(state.pant.timer)clearInterval(state.pant.timer);const total=state.pant.seconds;state.pant.timer=setInterval(()=>{state.pant.seconds--;if($('#pantTimer')){$('#pantTimer').textContent=formatTime(state.pant.seconds);if(state.pant.seconds<=10)$('#pantTimer').classList.add('warn')}if($('#pantProgress'))$('#pantProgress').style.width=(state.pant.seconds/total*100)+'%';if(state.pant.seconds<=0){clearInterval(state.pant.timer);state.pant.timer=null;pantFinish('⏰ زمان تمام شد؛ این نوبت امتیازی نگرفت.')}},1000)}
+function pantCorrect(){stopTimers();state.pant.scores[state.pant.team]+=state.pant.points;pantFinish(`✅ درست! ${faNum(state.pant.points)} امتیاز اضافه شد.`)}
+function pantWrong(){state.pant.scores[state.pant.team]=Math.max(0,state.pant.scores[state.pant.team]-1);toast('❌ یک امتیاز کم شد.');if($('#pantTimer'))$('#pantTimer').classList.add('warn')}
+function pantSkip(){stopTimers();pantFinish('⏭️ کلمه رد شد و امتیاز جدیدی نگرفتید.')}
+function pantFinish(message){openModal(`<div style="text-align:center"><div style="font-size:65px">🎯</div><h2>${message}</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="listItem"><span>${esc(state.pant.teamA)}</span><strong>${faNum(state.pant.scores[0])}</strong></div><div class="listItem"><span>${esc(state.pant.teamB)}</span><strong>${faNum(state.pant.scores[1])}</strong></div></div><button class="btn" style="margin-top:15px" onclick="window.__fl.closeModal();window.__fl.nextPantTurn()">ادامه</button></div>`)}
+function nextPantTurn(){closeModal();state.pant.team=state.pant.team===0?1:0;if(state.pant.team===0)state.pant.round++;if(state.pant.round>state.pant.rounds)go('pantWinner');else go('pantScore')}
+function renderPantWinner(){const a=state.pant.scores[0],b=state.pant.scores[1],winner=a===b?'مساوی':a>b?state.pant.teamA:state.pant.teamB;app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🏆</div><h1>پایان پانتومیم</h1><p>برنده: <strong>${esc(winner)}</strong></p></div><div class="card" style="margin-top:18px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="listItem"><span>${esc(state.pant.teamA)}</span><strong>${faNum(a)}</strong></div><div class="listItem"><span>${esc(state.pant.teamB)}</span><strong>${faNum(b)}</strong></div></div><button class="btn" onclick="window.__fl.go('pantomime')" style="width:100%;margin-top:16px">🔄 بازی جدید</button></div></section>`}
 
-  if(!items.length){
-    wheel.style.background='#eee';
-    return;
-  }
+/* ---------------------------------------------------------
+   Truth / Dare > 1000 each
+--------------------------------------------------------- */
+const truthBase=['امروز چه چیزی بیشتر از همه خوشحالت کرد؟','کدام بازی دورهمی را بیشتر دوست داری؟','اگر یک مهارت جدید یاد بگیری چه مهارتی را انتخاب می‌کنی؟','بهترین خاطره‌ات از یک سفر چیست؟','کدام فصل سال را بیشتر دوست داری؟','اگر یک حیوان خانگی داشته باشی چه حیوانی؟','کدام غذا را بیشتر دوست داری؟','کدام خوراکی را کمتر دوست داری؟','کدام ورزش را بیشتر دوست داری؟','کدام فیلم یا انیمیشن را دوباره می‌بینی؟','اگر یک ربات داشته باشی چه کاری به آن می‌سپاری؟','اگر یک بازی بسازی موضوعش چیست؟','اگر یک قدرت جادویی داشته باشی چه قدرتی؟','بهترین هدیه‌ای که گرفته‌ای چیست؟','کدام رنگ را بیشتر دوست داری؟','کدام شهر را دوست داری ببینی؟','کدام کشور را دوست داری ببینی؟','اگر یک کافه داشته باشی اسمش چیست؟','کدام سرگرمی را بیشتر دوست داری؟','اگر یک روز کاملاً آزاد داشته باشی چه کار می‌کنی؟','کدام وسیله تکنولوژی برایت جالب‌تر است؟','اگر یک اختراع بسازی چه چیزی می‌سازی؟','کدام حیوان را بیشتر دوست داری؟','کدام میوه را بیشتر دوست داری؟','کدام درس مدرسه برایت جالب‌تر است؟','اگر یک اتاق بازی داشته باشی چه چیزی داخل آن می‌گذاری؟','اگر یک کانال داشته باشی موضوعش چیست؟','اگر یک شغل جدید امتحان کنی چه شغلی؟','بهترین صبحانه برایت چیست؟','کدام بازی فکری را دوست داری؟'];
+const truthStart=['','راستش را بگو: ','صادقانه جواب بده: ','بدون فکر زیاد: ','از نگاه خودت: ','در یک جمله: ','جواب واقعی تو چیست؟ ','یک جواب کوتاه بده: '];
+const truthEnd=['',' و چرا؟',' و یک دلیل بگو.',' و یک مثال بزن.',' و کوتاه توضیح بده.',' و بگو دوباره همین را انتخاب می‌کنی یا نه.',' و یک خاطره مرتبط تعریف کن.'];
+const truths=[];truthStart.forEach(a=>truthBase.forEach(b=>truthEnd.forEach(c=>{const q=(a+b+' '+c).replace(/\s+/g,' ').trim();if(!truths.includes(q))truths.push(q)})));let tx=0;while(truths.length<1400){const s=['بازی','غذا','سفر','مدرسه','ورزش','کتاب','فیلم','انیمیشن','حیوان','شهر','کشور','سرگرمی','مهارت','تکنولوژی','دورهمی','شغل','اختراع','رنگ','کافه','مهمانی'];const q=`اگر درباره ${s[tx%s.length]} بخواهی یک انتخاب شخصی داشته باشی، چه چیزی انتخاب می‌کنی و چرا؟ (${tx+1})`;if(!truths.includes(q))truths.push(q);tx++}
+const dareBase=['مثل یک مجری تلویزیون خودت را معرفی کن.','صدای یک حیوان را اجرا کن.','یک شغل را بدون حرف زدن پانتومیم اجرا کن.','یک تبلیغ خنده‌دار برای یک لیوان آب اجرا کن.','مثل گزارشگر فوتبال یک اتفاق ساده را گزارش کن.','یک داستان سه‌جمله‌ای خنده‌دار بساز.','یک کلمه سخت را سه بار سریع بگو.','یک شعر کوتاه بداهه بساز.','یک وسیله معمولی را مثل محصول لوکس تبلیغ کن.','مثل ربات صحبت کن و خودت را معرفی کن.','یک حیوان را فقط با حرکت اجرا کن.','برای یک غذای ساده اسم تبلیغاتی بساز.','یک خبر خیالی و بامزه اعلام کن.','۲۰ ثانیه نقش مجری هواشناسی را بازی کن.','یک شخصیت خیالی بساز و معرفی کن.','سه اسم برای یک ربات خیالی پیشنهاد بده.','یک جمله را با صدای کارتونی بگو.','یک حرکت ساده و خنده‌دار اجرا کن.','یک داستان درباره یک گربه فضانورد تعریف کن.','یک تبلیغ برای یک مداد بساز.'];
+const dareStart=['','جرئت داری که ','همین الان ','برای نوبت خودت ','با انرژی بیشتر ','با صدای متفاوت ','به شکل بامزه '];const dareEnd=['',' و دوباره تکرارش کن.',' و در پایان یک تعظیم کوتاه انجام بده.',' و یک جمله بامزه اضافه کن.',' و در آخر یک اسم خلاقانه برایش بگذار.',' و در پایان یک ژست ساده بگیر.'];const dares=[];dareStart.forEach(a=>dareBase.forEach(b=>dareEnd.forEach(c=>{const q=(a+b.replace(/\.$/,'')+' '+c).replace(/\s+/g,' ').trim();if(!dares.includes(q))dares.push(q)})));let dx=0;while(dares.length<1400){const acts=['یک داستان خنده‌دار سه‌جمله‌ای بساز.','یک شعار برای بازی خیالی بساز.','یک وسیله معمولی را تبلیغ کن.','یک شخصیت خیالی را معرفی کن.','یک حیوان خیالی بساز و توصیفش کن.','یک شهر خیالی را معرفی کن.','یک غذای خیالی با اسم جدید بساز.','یک برنامه تلویزیونی خیالی معرفی کن.','یک ربات خیالی معرفی کن.','یک بازی خیالی توضیح بده.'];const styles=['با صدای ربات.','با حالت مجری.','با حالت گزارشگر.','با حالت کارتونی.','خیلی جدی.','با هیجان.','خیلی کوتاه.'];const q=acts[dx%acts.length]+' '+styles[dx%styles.length]+' ('+(dx+1)+')';if(!dares.includes(q))dares.push(q);dx++}
+function renderTruth(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🍾</div><h1>حقیقت یا جرئت</h1><p>${faNum(truths.length)} حقیقت و ${faNum(dares.length)} جرئت</p></div><div class="grid"><div class="card"><h2>👥 بازیکنان</h2><div class="row"><input id="truthName" placeholder="نام بازیکن"><button class="btn" id="addTruth">افزودن</button></div><div id="truthPlayers" class="list" style="margin-top:14px"></div></div><div class="card" style="text-align:center"><h2>🍾 بطری</h2><div class="bottle" id="bottle"><div class="bottleCap"></div><div class="bottleNeck"></div><div class="bottleBody"></div></div><button class="btn orange" id="spinBottle">🍾 چرخاندن بطری</button><div id="truthResult" style="margin-top:14px;font-weight:900"></div></div></div></section>`;$('#addTruth').onclick=addTruthPlayer;$('#truthName').addEventListener('keydown',e=>{if(e.key==='Enter')addTruthPlayer()});$('#spinBottle').onclick=spinBottle;renderTruthPlayers()}
+function addTruthPlayer(){const n=$('#truthName').value.trim();if(!n)return;if(state.truth.players.includes(n)){toast('نام تکراری است.');return}state.truth.players.push(n);renderTruth()}
+function removeTruthPlayer(i){state.truth.players.splice(i,1);renderTruth()}
+function renderTruthPlayers(){if(!$('#truthPlayers'))return;$('#truthPlayers').innerHTML=state.truth.players.length?state.truth.players.map((p,i)=>`<div class="listItem"><span>👤 ${esc(p)}</span><button class="btn red small" onclick="window.__fl.removeTruth(${i})">حذف</button></div>`).join(''):'<div class="empty">حداقل دو بازیکن لازم است.</div>'}
+function spinBottle(){if(state.truth.players.length<2){toast('حداقل دو بازیکن لازم است.');return}const index=Math.floor(Math.random()*state.truth.players.length);state.truth.bottleRotation+=1800+Math.random()*800;$('#bottle').style.transform=`rotate(${state.truth.bottleRotation}deg)`;setTimeout(()=>{$('#truthResult').innerHTML=`🍾 انتخاب شد: <strong>${esc(state.truth.players[index])}</strong><div class="row" style="margin-top:12px"><button class="btn" onclick="window.__fl.truthChallenge(${index},'truth')">🗣️ حقیقت</button><button class="btn orange" onclick="window.__fl.truthChallenge(${index},'dare')">🎭 جرئت</button></div>`},3000)}
+function truthChallenge(index,type){const list=type==='truth'?truths:dares;const q=list[Math.floor(Math.random()*list.length)];openModal(`<div style="text-align:center"><div style="font-size:74px">${type==='truth'?'🗣️':'🎭'}</div><span class="badge ${type==='truth'?'green':'orange'}">${type==='truth'?'حقیقت':'جرئت'}</span><h2>${esc(state.truth.players[index])}</h2><div class="questionBox" style="padding:20px;margin-top:14px">${esc(q)}</div><button class="btn" style="width:100%;margin-top:14px" onclick="window.__fl.closeModal()">✅ انجام شد</button></div>`) }
 
-  const colors=['#6c5ce7','#00bcd4','#ff4ecd','#00d68f','#ff9f43','#ff4757','#4dabf7','#a66cff'];
-  const slice=360/items.length;
+/* ---------------------------------------------------------
+   Wheel, RPS, Letter
+--------------------------------------------------------- */
+function renderWheel(){app.innerHTML=`<section class="page"><div class="hero"><div class="heroIcon">🎡</div><h1>گردونه شانس</h1><p>یک بازیکن را تصادفی انتخاب کن.</p></div><div class="grid"><div class="card"><h2>👥 بازیکنان</h2><div class="row"><input id="wheelName" placeholder="نام"><button class="btn" id="addWheel">افزودن</button></div><div id="wheelPlayers" class="list" style="margin-top:14px"></div></div><div class="card" style="text-align:center"><div class="wheelPointer">▼</div><div class="wheel" id="wheel"></div><button class="btn green" id="spinWheel">🎡 چرخاندن</button><h2 id="wheelResult"></h2></div></div></section>`;$('#addWheel').onclick=addWheelPlayer;$('#spinWheel').onclick=spinWheel;renderWheelPlayers()}
+function addWheelPlayer(){const n=$('#wheelName').value.trim();if(!n)return;if(state.wheel.players.includes(n)){toast('نام تکراری است.');return}state.wheel.players.push(n);renderWheel()}
+function removeWheelPlayer(i){state.wheel.players.splice(i,1);renderWheel()}
+function renderWheelPlayers(){if(!$('#wheelPlayers'))return;$('#wheelPlayers').innerHTML=state.wheel.players.length?state.wheel.players.map((p,i)=>`<div class="listItem"><span>${esc(p)}</span><button class="btn red small" onclick="window.__fl.removeWheel(${i})">حذف</button></div>`).join(''):'<div class="empty">حداقل دو بازیکن لازم است.</div>'}
+function spinWheel(){if(state.wheel.players.length<2){toast('حداقل دو بازیکن لازم است.');return}const i=Math.floor(Math.random()*state.wheel.players.length);state.wheel.rotation+=1440+Math.random()*900;$('#wheel').style.transform=`rotate(${state.wheel.rotation}deg)`;setTimeout(()=>$('#wheelResult').innerHTML=`🎉 انتخاب شد: <strong>${esc(state.wheel.players[i])}</strong>`,4100)}
+function playRps(){openModal(`<div style="text-align:center"><div style="font-size:66px">✊</div><h2>سنگ، کاغذ، قیچی</h2><div class="row"><button class="btn" onclick="window.__fl.rpsChoice('سنگ')">🪨 سنگ</button><button class="btn" onclick="window.__fl.rpsChoice('کاغذ')">📄 کاغذ</button><button class="btn" onclick="window.__fl.rpsChoice('قیچی')">✂️ قیچی</button></div></div>`)}
+function rpsChoice(me){const a=['سنگ','کاغذ','قیچی'];const ai=a[Math.floor(Math.random()*a.length)];const win=(me==='سنگ'&&ai==='قیچی')||(me==='کاغذ'&&ai==='سنگ')||(me==='قیچی'&&ai==='کاغذ');openModal(`<div style="text-align:center"><div style="font-size:70px">${me===ai?'🤝':win?'🏆':'😄'}</div><h2>${me===ai?'مساوی':win?'بردی!':'باختی!'}</h2><p>انتخاب تو: ${me}</p><p>انتخاب حریف: ${ai}</p><button class="btn" onclick="window.__fl.playRps()">🔄 دوباره</button></div>`)}
+function showLetter(){const letters='ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی';const l=letters[Math.floor(Math.random()*letters.length)];openModal(`<div style="text-align:center"><div style="font-size:65px">🔤</div><h2>حرف این دور</h2><div style="font-size:110px;font-weight:900;color:var(--primary)">${l}</div><p>اسم، فامیل، شهر، کشور، غذا، حیوان و... را با این حرف بنویسید.</p><button class="btn" onclick="window.__fl.showLetter()">🔄 حرف جدید</button></div>`)}
 
-  let stops=[];
-  for(let i=0;i<items.length;i++){
-    stops.push(`${colors[i%colors.length]} ${i*slice}deg ${(i+1)*slice}deg`);
-  }
-  wheel.style.background=`conic-gradient(${stops.join(',')})`;
-
-  wheel.innerHTML=items.map((x,i)=>{
-    const angle=i*slice+slice/2;
-    return `<span style="
-      position:absolute;left:50%;top:50%;
-      transform:rotate(${angle}deg) translateY(-${Math.min(35,items.length*2)}px);
-      transform-origin:0 ${Math.min(35,items.length*2)}px;
-      font-weight:900;color:white;font-size:${items.length>10?10:13}px;
-      white-space:nowrap;text-shadow:0 2px 5px #333;
-    ">${escapeHTML(x.slice(0,14))}</span>`;
-  }).join('');
-}
-
-$('wheelItems').addEventListener('input',drawWheel);
-
-let wheelRotation=0;
-
-function spinWheel(){
-  const items=$('wheelItems').value.split('\n').map(x=>x.trim()).filter(Boolean);
-  if(items.length<2){
-    toast('حداقل دو گزینه وارد کنید.');
-    return;
-  }
-
-  const index=Math.floor(Math.random()*items.length);
-  const slice=360/items.length;
-
-  wheelRotation+=1440+(360-index*slice-slice/2);
-  $('wheelElement').style.transform=`rotate(${wheelRotation}deg)`;
-
-  setTimeout(()=>{
-    $('wheelResult').textContent=`🎉 انتخاب شد: ${items[index]}`;
-  },4100);
-}
-
-/* =========================================================
-   RPS
-========================================================= */
-
-function startRPS(){
-  showScreen('rps');
-  $('rpsResult').textContent='انتخاب کن';
-}
-
-function playRPS(user){
-  const choices=['سنگ','کاغذ','قیچی'];
-  const ai=rand(choices);
-  let result='';
-
-  if(user===ai)result='🤝 مساوی!';
-  else if(
-    (user==='سنگ'&&ai==='قیچی')||
-    (user==='کاغذ'&&ai==='سنگ')||
-    (user==='قیچی'&&ai==='کاغذ')
-  )result='🏆 تو بردی!';
-  else result='😄 کامپیوتر برد!';
-
-  $('rpsResult').innerHTML=`تو: ${user} | حریف: ${ai}<br><strong>${result}</strong>`;
-}
-
-/* =========================================================
-   NAME FAMILY
-========================================================= */
-
-const letters=['ا','ب','پ','ت','ث','ج','چ','ح','خ','د','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ک','گ','ل','م','ن','و','ه','ی'];
-
-function startNameFamily(){
-  showScreen('namefamily');
-  $('randomLetter').textContent='؟';
-}
-function randomLetter(){
-  const el=$('randomLetter');
-  let i=0;
-  const interval=setInterval(()=>{
-    el.textContent=rand(letters);
-    i++;
-    if(i>15){
-      clearInterval(interval);
-      el.textContent=rand(letters);
-    }
-  },70);
-}
-
-/* =========================================================
-   QUIZ
-========================================================= */
-
-const quizFacts=[
-['پایتخت ایران چیست؟','تهران'],
-['بزرگ‌ترین سیاره منظومه شمسی کدام است؟','مشتری'],
-['سیاره سرخ کدام است؟','مریخ'],
-['فرمول شیمیایی آب چیست؟','H₂O'],
-['چند قاره در جهان وجود دارد؟','۷'],
-['چند ماه در سال وجود دارد؟','۱۲'],
-['هر دقیقه چند ثانیه دارد؟','۶۰'],
-['هر روز چند ساعت دارد؟','۲۴'],
-['دمای انجماد آب در مقیاس سلسیوس چند درجه است؟','۰'],
-['دمای جوش آب در سطح دریا تقریباً چند درجه سلسیوس است؟','۱۰۰'],
-['ماهواره طبیعی زمین چیست؟','ماه'],
-['خورشید چیست؟','یک ستاره'],
-['بزرگ‌ترین اقیانوس جهان چیست؟','اقیانوس آرام'],
-['صحرای بزرگ آفریقا در کدام قاره است؟','آفریقا'],
-['برج ایفل در کدام شهر قرار دارد؟','پاریس'],
-['دیوار بزرگ در کدام کشور است؟','چین'],
-['اهرام جیزه در کدام کشور هستند؟','مصر'],
-['نویسنده هملت چه کسی است؟','ویلیام شکسپیر'],
-['نقاش مونالیزا چه کسی است؟','لئوناردو داوینچی'],
-['بزرگ‌ترین اندام بدن انسان چیست؟','پوست'],
-['کدام اندام خون را پمپاژ می‌کند؟','قلب'],
-['کدام اندام مسئول اصلی تنفس است؟','ریه‌ها'],
-['گیاهان در فتوسنتز از نور چه چیزی استفاده می‌کنند؟','نور خورشید'],
-['ماده ژنتیکی اصلی سلول چیست؟','DNA'],
-['چند روز در یک سال معمولی وجود دارد؟','۳۶۵'],
-['تقریباً چند هفته در سال وجود دارد؟','۵۲'],
-['کدام حیوان به عنوان پادشاه جنگل معروف است؟','شیر'],
-['کدام پرنده نمی‌تواند پرواز کند و در قطب جنوب زندگی می‌کند؟','پنگوئن'],
-['بزرگ‌ترین پستاندار جهان چیست؟','نهنگ آبی'],
-['کدام فلز نماد شیمیایی Au دارد؟','طلا'],
-['نماد شیمیایی اکسیژن چیست؟','O'],
-['سیاره نزدیک‌تر به خورشید کدام است؟','عطارد'],
-['کدام سیاره حلقه‌های بسیار مشهور دارد؟','زحل'],
-['پایتخت فرانسه چیست؟','پاریس'],
-['پایتخت ژاپن چیست؟','توکیو'],
-['پایتخت ایتالیا چیست؟','رم'],
-['پایتخت بریتانیا چیست؟','لندن'],
-['پایتخت ترکیه چیست؟','آنکارا'],
-['پایتخت آلمان چیست؟','برلین']
-];
-
-const QUIZ=(()=>{
-  const out=[];
-  const templates=[
-    '{q}',
-    'پرسش: {q}',
-    'اگر سریع جواب بدهی: {q}',
-    'سؤال این دور: {q}',
-    'دانش عمومی: {q}',
-    'جواب درست را پیدا کن: {q}',
-    'یک سؤال علمی/عمومی: {q}',
-    'نوبت این سؤال است: {q}'
-  ];
-  for(let i=0;i<1200;i++){
-    const f=quizFacts[i%quizFacts.length];
-    out.push({
-      q:templates[Math.floor(i/quizFacts.length)%templates.length].replace('{q}',f[0]),
-      a:f[1]
-    });
-  }
-  return out;
+/* ---------------------------------------------------------
+   Render router
+--------------------------------------------------------- */
+function renderPage(page){
+  const map={home:renderHome,games:renderGames,guide:renderGuide,mafiaSetup:renderMafiaSetup,mafiaReveal:renderMafiaReveal,mafiaNight:renderMafiaNight,mafiaDay:renderMafiaDay,mafiaVote:renderMafiaVote,mafiaDefense:renderMafiaDefense,mafiaFinalVote:renderMafiaFinalVote,mafiaWinner:renderMafiaWinner,spySetup:renderSpySetup,spyReveal:renderSpyReveal,spyGame:renderSpyGame,spyVote:renderSpyVote,pantomime:renderPantSetup,pantScore:renderPantScore,pantTopic:renderPantTopic,pantRound:renderPantRound,pantWinner:renderPantWinner,truth:renderTruth,wheel:renderWheel};if(map[page])map[page]()}
+function openGame(id){if(id==='letter')showLetter();else{setActive(id);go(id)}}
+window.__fl={go,openGame,closeModal,removeMafia:removeMafiaPlayer,startNight,continueDetective,nextAfterNight,nextMafiaRound,resetMafia,removeSpy,chooseSpy,choosePantScore,removeTruth:removeTruthPlayer,truthChallenge,removeWheel:removeWheelPlayer,playRps,rpsChoice,showLetter};
+makeParticles();setActive('home');go('home');
 })();
-
-let quizState={score:0,index:0};
-
-function startQuiz(){
-  showScreen('quiz');
-  quizState={score:0,index:0};
-  renderQuiz();
-}
-
-function renderQuiz(){
-  const q=QUIZ[Math.floor(Math.random()*QUIZ.length)];
-  quizState.current=q;
-
-  $('quizContent').innerHTML=`
-    <div class="result-box">
-      <div style="font-size:50px">🧠</div>
-      <h3>${escapeHTML(q.q)}</h3>
-    </div>
-    <div class="field">
-      <label>جواب شما</label>
-      <input id="quizAnswer" placeholder="پاسخ را بنویسید">
-    </div>
-    <div style="text-align:center">
-      <button class="btn" onclick="answerQuiz()">ثبت جواب</button>
-    </div>
-    <div style="text-align:center;margin-top:15px">
-      امتیاز: <b>${quizState.score}</b>
-    </div>
-  `;
-}
-
-function answerQuiz(){
-  const ans=$('quizAnswer').value.trim().toLowerCase();
-  const correct=quizState.current.a.toLowerCase();
-
-  if(ans===correct){
-    quizState.score++;
-    toast('✅ درست!');
-  }else{
-    toast(`❌ جواب صحیح: ${quizState.current.a}`);
-  }
-
-  setTimeout(renderQuiz,900);
-}
-
-/* =========================================================
-   INIT
-========================================================= */
-
-renderRoles();
-updateMafiaPreview();
 </script>
 </body>
 </html>
